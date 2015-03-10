@@ -1,0 +1,43 @@
+﻿<?xml version="1.0"?>
+<nav>
+	<item type="composite" base="main/" data="main.xml" label="main">
+		<item type="final" data="Program.xml" label="Program" />
+		<item type="final" data="MainFrame.xml" label="MainFrame" />
+		<item type="final" data="ResourceManager.xml" label="ResourceManger" />
+		<item type="final" data="Timer.xml" label="Timer" />
+		<item type="group" label="Input">
+			<item type="final" data="Input.xml" label="Input" />
+			<item type="final" data="InputState.xml" label="InputState" />
+			<item type="final" data="MouseEvent.xml" label="MouseEvent" />
+			<item type="final" data="KeyEvent.xml" label="KeyEvent" />
+		</item>
+		<item type="group" label="Interfaces">
+			<item type="final" data="OnTickListener.xml" label="OnTickListener" />
+		</item>
+	</item>
+	<item type="composite" data="ui.xml" base="ui/" label="ui">
+		<item type="composite" data="sprites.xml" label="Sprites">
+			<item type="final" data="Sprite.xml" label="Sprite" />
+			<item type="final" data="TowerSprite.xml" label="TowerSprite" />
+			<item type="final" data="BugSprite.xml" label="BugSprite" />
+			<item type="final" data="KeyEvent.xml" label="KeyEvent" />
+		</item>
+		<item type="final" data="TiledLayer.xml" label="TiledLayer" />
+		<item type="final" data="Menu.xml" label="Menu" />
+		<item type="final" data="MessageBox.xml" label="MessageBox" />
+		<item type="group" label="Screens">
+			<item type="final" data="Screen.xml" label="Screen" />
+			<item type="final" data="LoadingScreen.xml" label="LoadingScreen" />
+			<item type="final" data="GameScreen.xml" label="GameScreen" />
+			<item type="final" data="MenuScreen.xml" label="MenuScreen" />
+		</item>
+		<item type="group" label="Interfaces">
+			<item type="final" data="IDrawable.xml" label="IUpdatable" />
+			<item type="final" data="IUpdatable.xml" label="IDrawable" />
+		</item>
+	</item>
+	<item type="composite" data="utils.xml" base="utils/" label="utils">
+		<item type="final" data="Vector2F.xml" label="Vector2F" />
+		<item type="final" data="PhysObject.xml" label="PhysObject" />
+	</item>
+</nav>

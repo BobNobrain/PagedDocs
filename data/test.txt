@@ -1,0 +1,1 @@
+﻿This is my test text, кириллица, <code>html</code> tags usage. <br /> Cannot understand Y U tryin' 2 parse it, stpid browser!

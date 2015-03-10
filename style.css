@@ -1,0 +1,289 @@
+@charset "utf-8";
+
+/* General */
+
+html, body { margin: 0px; padding: 0px; width: 100%; height: 100%; }
+body { font-family: Verdana, Geneva, sans-serif; overflow: hidden; }
+
+#wrapper {
+	background: #fff;
+	height: 100%;
+	width: 100%;
+	border-collapse: collapse;
+	border-width: 0px;
+	border-spacing: 0px;
+}
+
+#ribbon {
+	background: #eee;
+	height: 120px;
+}
+.ribbon-wrapper {
+	height: 120px;
+	border-bottom: 2px solid #009BFF;
+	box-shadow: 0px 3px 3px rgba(0,0,0,0.5);
+	
+	position: relative;
+	z-index: 100;
+}
+
+#content {
+	height: auto;
+	position: relative;
+	width: 100%;
+}
+
+#nav {
+	width: 25%;
+	height: 100%;
+	background: #f7f7f7;
+	float: left;
+	border-right: 1px solid #009BFF;
+	overflow: auto;
+	
+	position: absolute;
+	top: 1px;
+}
+
+#text-wrapper {
+	margin-left: 25%;
+	overflow: auto;
+	height: 100%;
+	width: 75%;
+	border-left: 1px solid #0065A6;
+	
+	top: 0px;
+	position: absolute;
+}
+
+#text {
+	background: #f7f7f7;
+	margin: 10px;
+	padding: 10px;
+	box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
+}
+
+/* Ribbon */
+#ribbon .tab-buttons {
+	float: left;
+	width: 61px;
+	height: 100%;
+	background: #009BFF;
+}
+
+.tab-button {
+	width: 60px;
+	height: 60px;
+	text-align: center;
+	margin: 0px;
+	padding: 0px;
+	background: #eee;
+	cursor: pointer;
+	
+	color: #009BFF;
+	
+	overflow: hidden;
+	font-size: 45px;
+}
+
+.tab-button.active {
+	background: #009BFF;
+	color: #fff;
+}
+.tab-button:hover {
+	background: #40B4FF;
+	color: #fff;
+}
+
+#ribbon .tabs {
+	margin-left: 65px;
+	padding-top: 2px;
+}
+
+#ribbon .tab {
+	display: none;
+	color: #009BFF;
+}
+#ribbon .tab.active { display: block; }
+
+/* Tree */
+
+#nav ul {
+	display: none;
+	list-style: none;
+}
+
+#nav > ul {
+	padding-left: 16px;	
+}
+
+#nav ul ul {
+	border-left: dashed 1px #009BFF;
+	padding-left: 0px;
+	margin-left: 28px;
+}
+
+#nav > ul > li > ul {
+	margin-left: 8px;
+	padding-left: 0px;	
+}
+
+#nav ul.active {
+	display: block;
+}
+
+#nav li {
+	padding: 1px;
+	
+	display: block;
+	clear: left;
+}
+
+#nav li li::before {
+	display: block;
+	width: 16px;
+	height: 2px;
+	float: left;
+	border-top: dashed 1px #009BFF;
+	content: " ";
+	position: relative;
+	top: 8px;
+	
+	margin-right: 3px;
+}
+
+#nav li a {
+	
+}
+#nav li a:hover {
+	
+}
+
+#nav li .label {
+	float: left;
+	cursor: pointer;
+	font-family: "Courier New", Courier, monospace;
+}
+#nav li .label:hover {
+	color: #009BFF;
+}
+#nav li.active > .label {
+	background: #009BFF;
+	color: #fff;	
+}
+
+#nav div.file-icon, #nav div.dopen-icon, #nav div.dclsd-icon {
+	cursor: pointer;
+}
+
+div.file-icon, div.dopen-icon, div.dclsd-icon {
+	float: left;
+	width: 16px;
+	height: 16px;
+	background: url(img/file.png);
+	margin: 2px;
+}
+
+div.dopen-icon {
+	background: url(img/fopen.png);
+}
+
+div.dclsd-icon {
+	background: url(img/fclsd.png);
+}
+
+/* Content */
+
+#text > div > h2 {
+	font-size: 28px;
+	font-family: "Courier New", Courier, monospace;
+	margin-top: 0px;
+}
+
+.entry h2 {
+	font-size: 20px;
+}
+
+.entry {
+	margin-bottom: 20px;
+	border-bottom: 1px solid #009BFF;
+	padding-bottom: 10px;
+}
+
+.ref {
+	cursor: pointer;
+	text-decoration: underline;
+	font-family: "Courier New", Courier, monospace;
+	color: #009BFF;
+}
+.ref:hover {
+	text-decoration: none;
+}
+
+#text code {
+	font-size: 16px;
+}
+
+.see-also {
+	background: #ddd;
+	margin: -10px;
+	margin-top: 0px;
+	padding-bottom: 5px;
+}
+
+.see-also ul {
+	padding: 0px 25px;
+	margin: 2px;
+}
+
+.see-also::before {
+	content: "См. также:";
+	background: #009BFF;
+	color: #fff;
+	padding: 2px;
+	display: block;
+	padding-left: 15px;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.listing {
+	font-family: "Courier New", Courier, monospace;
+	border: 1px solid #009BFF;
+	background: #eee;
+	padding: 5px;
+	margin: 10px 2px;
+	overflow: auto;
+	word-break: keep-all;
+}
+
+.listing .comment, .listing .comment strong, .listing .comment em, .listing .comment i, .listing .comment .string {
+	font-style: italic;
+	color: #090;
+	font-weight: normal;
+	background: none transparent;
+}
+
+.listing .string, .listing .string .comment, .listing .string strong, .listing .string em, .listing .string i {
+	color: #22F;
+	background: #ccf;
+	font-weight: normal;
+	font-style: normal;
+}
+
+.listing strong {
+	color: #63F;
+	font-weight: bold;
+}
+
+.listing em {
+	color: #36F;
+	font-style: italic;
+	font-weight: normal;
+}
+
+.listing i {
+	color: #C00;
+	font-style: normal;
+	font-weight: normal;
+}

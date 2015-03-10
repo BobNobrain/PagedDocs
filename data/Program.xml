@@ -1,0 +1,16 @@
+﻿<?xml version="1.0"?>
+<body lang="Java">
+<title>Program</title>
+<description>
+<entry>
+<listing lang="Java">
+public class Program { ... }
+</listing>
+Содержит метод <code>static void main()</code>, в котором создаёт, настраивает и запускает форму приложения <ref to="MainFrame.xml">MainFrame</ref>.
+</entry>
+</description>
+<seealso>
+<ref to="main/MainFrame.xml">MainFrame (класс)</ref>
+<ref to="notes/Threading.xml">Основные потоки приложения (заметка)</ref>
+</seealso>
+</body>

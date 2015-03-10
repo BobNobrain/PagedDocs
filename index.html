@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Layout</title>
+<link rel="stylesheet" href="style.css" />
+<script src="scripts/prefs.js" ></script>
+<script>
+documentLoadedListeners=[];
+function subscribeOnLoad(callback)
+{
+	documentLoadedListeners.push(callback);
+}
+function onDocumentLoaded()
+{
+	for(var i=0; i<documentLoadedListeners.length; i++)
+	{
+		documentLoadedListeners[i]();
+	}
+	documentLoadedListeners=null;
+}
+subscribeOnLoad(function()
+{
+	document.getElementById("text").innerHTML=Prefs.text.initialContent;
+	document.getElementById("tab1").innerHTML=Prefs.text.initialRibbonContent;
+	document.getElementById("tab2").innerHTML=Prefs.text.initialRibbonContent;
+});
+</script>
+<script src="scripts/interface.js" ></script>
+<script src="scripts/tabctrl.js" ></script>
+<script src="scripts/navtree.js" ></script>
+<script src="scripts/navigation.js" ></script>
+<script src="scripts/syntax.js" ></script>
+<script src="scripts/contentman.js" ></script>
+</head>
+<body onload='onDocumentLoaded();'>
+<table id='wrapper' cellspacing="0" cellpadding="0">
+	<tr><td id='ribbon'>
+	<div class='ribbon-wrapper'>
+		<div class='tab-buttons'>
+			<div class='tab-button active' id='tab1b'>N</div>
+			<div class='tab-button' id='tab2b'>V</div>
+		</div>
+		<div class='tabs'>
+			<div class='tab active' id='tab1'>Content of tab #1</div>
+			<div class='tab' id='tab2'>Content of tab #2</div>
+		</div>
+	</div>
+	</td></tr>
+	<tr><td id='content'>
+		<div id='nav'>
+		</div>
+		<div id='text-wrapper'>
+			<div id='text'></div>
+		</div>
+	</td></tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<body lang="Java">
+<title>main #1</title>
+<description>
+<entry>
+<title>First entry title</title>
+<listing lang="Java">
+public class Program { ... }
+</listing>
+Содержит метод <code>static void main()</code>, в котором создаёт, настраивает и запускает форму приложения <ref to="main/0.xml">MainFrame</ref>.
+</entry>
+<entry>
+<title>Second entry title</title>
+The second section goes here
+And here too
+</entry>
+</description>
+<seealso>
+<ref to="main/2.xml">main #2</ref>
+<ref to="ui/1.xml">ui #1</ref>
+</seealso>
+</body>
