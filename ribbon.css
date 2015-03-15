@@ -1,0 +1,108 @@
+@charset "utf-8";
+
+#ribbon .section {
+	display: block;
+	float: left;
+	padding: 2px;
+	margin: 5px;
+	position: relative;
+}
+
+#ribbon .section.joined {
+	margin-right: 0px;
+}
+#ribbon .section.joined + .section {
+	margin-left: 0px;
+}
+
+#ribbon .section div {
+	width: 100%;
+}
+
+#ribbon input[type="text"] {
+	border: 1px solid #009bff;
+	color: inherit;
+	padding: 3px;
+	width: 200px;
+}
+
+#ribbon input[type="checkbox"] {
+	border: 1px solid #009bff;
+	color: #009bff;
+	background: #009bff;
+}
+
+#ribbon label {
+	display: block;
+	margin: 2px 0px;
+	cursor: pointer;
+	font-size: 0.8em;
+}
+
+#ribbon label:hover {
+	text-decoration: underline;
+}
+
+/* Ribbon.SECTION_SEPARATOR */
+#ribbon .section.separator {
+	width: 1px;
+	min-width: 1px;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin: 5px 0px;
+	background: #009bff;
+	border: 0px none;
+}
+
+/* Ribbon.SECTION_VERTICAL_FLOW */
+#ribbon .section.verf {
+	/* Nothing special */
+}
+
+#ribbon .section.verf div {
+	margin-bottom: 2%;
+}
+
+/* Ribbon.SECTION_FILLED */
+#ribbon .section.full {
+	/* Nothing special */
+}
+
+#ribbon .section.full div {
+	height: 100%;
+}
+
+#ribbon .section.full .button .label {
+	margin-bottom: 0px;
+	margin-top: calc(100% - 5px - 1em);
+	height: 1.1em !important;
+}
+
+#ribbon .button {
+	background: transparent none;
+	color: #009bff;
+	text-align: center;
+	width: 100%;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+#ribbon .button::before {
+	content: attr(data-icon);
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	
+	font-size: 68pt;
+	text-align: center;
+	
+	width: 100%; height: 100%;
+	
+	overflow: hidden;
+	margin-top: -0.2em;
+}
+
+#ribbon .button:hover {
+	background: #009bff;
+	color: #fff;
+}
