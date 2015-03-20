@@ -20,5 +20,16 @@ Ribbon=
 	
 	createButton: function(label)
 	{
+		
+	},
+	
+	createList: function(labels, checkable)
+	{
+		
+	},
+	
+	createListItem: function(label, enabled, checked)
+	{
+		
 	}
 }

@@ -21,7 +21,7 @@ SyntaxAnalyzer=
 				"public", "protected", "private", "class", "interface", "enum", "int",
 				"float", "double", "byte", "package", "import", "new", "return", "if",
 				"for", "while", "do", "try", "catch", "finally", "assert", "long",
-				"else", "throw", "break", "continue"
+				"else", "throw", "break", "continue", "boolean"
 			],
 			embeded: [ "static", "final" ],
 			colored: [ "void", "abstract", "throws" ],

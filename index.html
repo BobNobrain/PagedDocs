@@ -24,7 +24,7 @@ subscribeOnLoad(function()
 {
 	document.getElementById("text").innerHTML=Prefs.text.initialContent;
 	//document.getElementById("tab1").innerHTML=Prefs.text.initialRibbonContent;
-	document.getElementById("tab2").innerHTML=Prefs.text.initialRibbonContent;
+	//document.getElementById("tab2").innerHTML=Prefs.text.initialRibbonContent;
 	
 	Tabs.createTab(document.getElementById("tab1b"), document.getElementById("tab1"));
 	Tabs.createTab(document.getElementById("tab2b"), document.getElementById("tab2"));
@@ -49,34 +49,87 @@ subscribeOnLoad(function()
 		<div class='tabs'>
 			<div class='tab active' id='tab1'>
 				<div class="section full">
-					<div class="button">
+					<div class="button" data-icon="&#8682;">
 						<div class='label'>Наверх</div>
 					</div>
 				</div>
 				<div class="section separator">
 				</div>
 				<div class="section full joined">
-					<div class="button" data-icon="&#8249;">
+					<div class="button" data-icon="&#9666;">
 						<div class='label'>Назад</div>
 					</div>
 				</div>
 				<div class="section full">
-					<div class="button" data-icon="&#8250;">
+					<div class="button" data-icon="&#9656;">
 						<div class='label'>Вперёд</div>
+					</div>
+				</div>
+				<div class="section full">
+					<div class="button" data-icon="&#8962;">
+						<div class='label'>Домой</div>
+					</div>
+				</div>
+				<div class="section full">
+					<div class="button disabled" data-icon="&#8986;">
+						<div class='label'>История...</div>
 					</div>
 				</div>
 				<div class="section separator">
 				</div>
-				<div class="section verf">
+				<div class="section verf joined">
 					<input type="text" placeholder="Введите заголовок..." width="100px" />
 					<label><input type="checkbox" />Учесть регистр</label>
 					<label><input type="checkbox" checked="1" />Только в заголовках</label>
 					<div class="button" style="position: absolute; bottom: 0px;">
-						<div class='label'>Перейти &#x27a4;</div>
+						<div class='label'>Найти &#x27a4;</div>
 					</div>
 				</div>
+				<div class="section verf">
+					<ul id="search-results" class="list">
+						<li>Result 0</li>
+						<li>Result 1</li>
+						<li>Result 2</li>
+						<li>Result 3</li>
+						<li>Result 4</li>
+						<li>Result 5</li>
+						<li>Result 6</li>
+						<li>Result 7</li>
+						<li>Result 8</li>
+						<li>Result 9</li>
+					</ul>
+				</div>
 			</div>
-			<div class='tab' id='tab2'>Content of tab #2</div>
+			<div class='tab' id='tab2'>
+				<div class="section verf joined">
+					<div class='label'>Подсветка кода</div>
+					<input type="text" placeholder="Фильтр..." width="100px" />
+					<label><input type="checkbox" />Включена</label>
+					<div class="button" style="position: absolute; bottom: 0px;">
+						<div class='label'>Применить</div>
+					</div>
+				</div>
+				<div class="section verf">
+					<ul id="languages" class="list">
+						<li>Java</li>
+						<li>C#</li>
+						<li>JavaScript</li>
+						<li>C++</li>
+						<li>C</li>
+						<li>Pyton</li>
+						<li>PHP</li>
+						<li>XML/HTML</li>
+					</ul>
+				</div>
+				<div class="section separator"></div>
+				<div class="section verf">
+					<ul id="themes" class="list">
+						<li>Станартная</li>
+						<li>Тёмная</li>
+						<li>Яркая</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 	</td></tr>
