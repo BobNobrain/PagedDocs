@@ -12,3 +12,4 @@ Prefs.text={};
 Prefs.text.loading="Загрузка...";
 Prefs.text.initialContent="Выберите любой раздел в списке слева...";
 Prefs.text.initialRibbonContent="Панель загружается...";
+Prefs.text.ribbonListDefaultElementContent="(пусто)";

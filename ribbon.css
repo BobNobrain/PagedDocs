@@ -1,8 +1,27 @@
 @charset "utf-8";
 
+/* MAGIC NUMBERS */
+/* Ribbon height is assumed to be 120px, so section height is 100px
+ * .section right padding is also margin between last .section element and border between sections - 10px
+*/
+
+
 @font-face {
 	font-family: Icons;
 	src: url(img/Entypo.otf);
+}
+
+#ribbon {
+	background: #eee;
+	height: 120px;
+}
+.ribbon-wrapper {
+	height: 120px;
+}
+
+#ribbon .section {
+	min-width: 100px;
+	height: 100px;
 }
 
 #ribbon .section {
@@ -11,100 +30,60 @@
 	padding: 2px;
 	margin: 5px;
 	position: relative;
+	border: 1px solid transparent;
+	border-right-color: #009bff;
+	padding-right: 10px;
 }
 
-#ribbon .section.joined {
-	margin-right: 0px;
-}
-#ribbon .section.joined + .section {
-	margin-left: 0px;
-}
-
-#ribbon .section div {
-	width: 100%;
-}
-
-#ribbon input[type="text"] {
-	border: 1px solid #009bff;
-	background: #f7f7f7;
-	color: inherit;
-	padding: 3px;
-	width: 200px;
-	
-	box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.35);
-}
-#ribbon input[type="text"]:focus {
-	background: #fff;
-}
-
-#ribbon input[type="checkbox"] {
-	border: 1px solid #009bff;
-	color: #009bff;
-	background: #009bff;
-}
-
-#ribbon label {
+#ribbon .section:hover::after {
 	display: block;
-	margin: 2px 0px;
-	cursor: pointer;
-	font-size: 0.8em;
-}
-
-#ribbon label:hover {
-	text-decoration: underline;
-}
-
-/* Ribbon.SECTION_SEPARATOR */
-#ribbon .section.separator {
-	width: 1px;
-	min-width: 1px;
-	padding-left: 0px;
-	padding-right: 0px;
-	margin: 5px 0px;
+	content: attr(data-name);
+	position: absolute;
+	top: calc(100% + 3px);
+	left: 0px;
+	width: calc(100% - 10px); /* !MN: .section right padding */
 	background: #009bff;
-	border: 0px none;
+	text-align: center;
+	color: #fff;
+	
+	opacity: 0.7;
 }
 
-/* Ribbon.SECTION_VERTICAL_FLOW */
-#ribbon .section.verf {
-	/* Nothing special */
+#ribbon .section > * {
+	float: left;
+	display: block;
+	height: 100px;
 }
 
-#ribbon .section.verf div {
-	margin-bottom: 2%;
+/* Ribbon.ELEMENT_SPACE */
+#ribbon .section .space {
+	width: 10px;
+	height: 100px;
 }
 
-/* Ribbon.SECTION_FILLED */
-#ribbon .section.full {
-	/* Nothing special */
-}
-
-#ribbon .section.full div {
-	height: 100%;
-}
-
-/* Buttons */
-
-#ribbon .section.full .button .label {
-	margin-bottom: 0px;
-	margin-top: calc(100% - 15px - 1em);
-	height: 1.1em !important;
-}
-
+/* Ribbon.ELEMENT_BUTTON */
 
 #ribbon .button {
 	background: transparent none;
 	color: #009bff;
 	text-align: center;
-	width: 100%;
 	overflow: hidden;
 	cursor: pointer;
 	position: relative;
-	height: auto;
 	background: #ddd;
 	
 	-moz-user-select: none;
 	-webkit-user-select: none;
+}
+
+#ribbon .section > * > .button {
+	height: calc(1em + 8px);	
+	width: 100%;
+}
+
+#ribbon .section > .button {
+	min-width: 100px;
+	width: auto;
 }
 
 #ribbon .button:hover {
@@ -122,9 +101,21 @@
 	/* ... */
 }
 
-#ribbon .button:active .label {
-	top: 3px;
+#ribbon .section > .button .label {
+	/*margin-bottom: 0px;
+	margin-top: calc(100% - 15px - 1em);*/
+	height: 1.1em !important;
 	position: relative;
+	top: calc(100% - 1.1em - 10px);
+	padding: 0px 10px;
+}
+
+#ribbon .button:active .label {
+	top: 2px;
+	position: relative;
+}
+#ribbon .section > .button:active .label {
+	top: calc(100% - 1.1em - 7px);
 }
 #ribbon .button.disabled:active .label {
 	top: 0px;
@@ -161,23 +152,31 @@
 	background: #bbb;
 	width: 100%;
 	height: 5%;
+	min-height: 2px;
 }
 #ribbon .button:hover::after {
 	background: #0065A6;
 }
 #ribbon .button:active::after {
 	height: 2%;
+	min-height: 1px;
 }
 #ribbon .button.disabled::after {
 	display: none;
 }
 
-/* Lists */
+/* Ribbon.ELEMENT_GROUP */
+
+#ribbon .group {
+	position: relative;
+}
+
+/* Ribbon.ELEMENT_LIST + Ribbon.ELEMENT_LIST_ITEM */
 
 #ribbon .list {
 	list-style: none;
 	padding: 0px;
-	margin: 0px;
+	margin: 0px; margin-left: 2px;
 	height: 100%;
 	
 	border: 1px solid #009bff;
@@ -208,6 +207,11 @@
 	font-weight: bold;
 }
 
+/* Checkable list */
+#ribbon .list.checkable li.checked::after {
+	content: "✓";
+}
+
 /* Search results list */
 
 #search-results {
@@ -218,3 +222,38 @@
 #search-results li::after {
 	content: "→";
 }
+
+/* Ribbon.ELEMENT_TEXTBOX */
+
+#ribbon input[type="text"] {
+	border: 1px solid #009bff;
+	background: #f7f7f7;
+	color: inherit;
+	padding: 3px;
+	width: 200px;
+	
+	box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.35);
+}
+#ribbon input[type="text"]:focus {
+	background: #fff;
+}
+
+/* Ribbon.ELEMENT_CHECKBOX */
+
+#ribbon input[type="checkbox"] {
+	border: 1px solid #009bff;
+	color: #009bff;
+	background: #009bff;
+}
+
+#ribbon label {
+	display: block;
+	margin: 2px 0px;
+	cursor: pointer;
+	font-size: 0.8em;
+}
+
+#ribbon label:hover {
+	text-decoration: underline;
+}
+

@@ -52,22 +52,12 @@ body { font-family: Verdana, Geneva, sans-serif; overflow: hidden; }
 
 /* Ribbon */
 
-#ribbon {
-	background: #eee;
-	height: 120px;
-}
 .ribbon-wrapper {
-	height: 120px;
 	border-bottom: 2px solid #009BFF;
 	box-shadow: 0px 3px 3px rgba(0,0,0,0.5);
 	
 	position: relative;
 	z-index: 100;
-}
-
-#ribbon .section {
-	min-width: 100px;
-	height: 100px;
 }
 
 #ribbon .tab-buttons {
