@@ -62,8 +62,6 @@ SyntaxAnalyzer=
 							".*?"+escapeRegExpEntities(keyWords.strings[i].end)+"/g";
 				regexp=eval(regexp);
 				
-				console.log(regexp);
-				
 				code=code.replace(regexp, "<span class='string'>$&</span>");
 			}
 			for(var i=0; i<keyWords.comments.length; i++)

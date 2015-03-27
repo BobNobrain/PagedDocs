@@ -1,4 +1,5 @@
 var navWrapper=null, textWrapper=null;
+var ribbonTab1=null, ribbonTab2=null;
 
 var getIcon=function(li)
 {
@@ -42,6 +43,8 @@ Interface=
 	{
 		navWrapper=document.getElementById('nav');
 		textWrapper=document.getElementById('text');
+		ribbonTab1=document.getElementById('tab1');
+		ribbonTab2=document.getElementById('tab2');
 	},
 	
 	// Navigator
@@ -183,6 +186,26 @@ Interface=
 		getContent: function()
 		{
 			return textWrapper.innerHTML;
+		}
+	},
+	
+	// Ribbon
+	
+	ribbon:
+	{
+		getTabWrapper: function(n)
+		{
+			if(n==2) return ribbonTab2;
+			if(n==1) return ribbonTab1;
+			return null;
+		},
+		
+		refreshNavButtons: function()
+		{
+			if(Navigation.canGoBack()) Interface.ribbon.goBackButton.enable();
+			else Interface.ribbon.goBackButton.disable();
+			if(Navigation.canGoForward()) Interface.ribbon.goForwardButton.enable();
+			else Interface.ribbon.goForwardButton.disable();
 		}
 	}
 }

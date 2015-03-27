@@ -1,0 +1,102 @@
+﻿``Ok, that is a comment line
+
+First non-comment and not empty line is always the headline of the page
+``All empty lines will be erased
+
+``Here goes the first section
+`[Section 1: line breaks and control lines] These symbols are comment too
+Plain text of the section.
+New line doesn't make sense, it remains the same paragraph.
+
+Like here, insert 2 line breaks to make it appear in the rendered page. Generally, if you'll
+insert n line breaks, you would see n-1 ones. The single line break is converted into a space.
+
+However, if you have a control line (started with '`' symbol) between two lines of plain text,
+the latters appear separated.
+
+``To avoid '`' character, just escape it with '\' char, like this:
+
+\` This line begins with control character.
+
+This also works in every point of line.
+
+`[Section 2: formatting]
+You can use next formatting for the text: `*bold*, `/italic/, `_underlined`, `-deleted`, `.code (monospace)`.
+
+This emphasiszes text between the first found control char and next control char (if they're not escaped, of
+course) with format, given in the char next to the first control char. You cannot colorize the text or change
+it's font. Emphasized string can be broken into many lines.
+
+There are also block formating type. They format the whole block of text as a code, like this:
+`(Java
+public class Programs extends Shit
+{
+	// In code block, every line break appears as it is
+	public static void main(String[] args)
+	{
+		System.out.println("Language parameter defines syntax hilighting");
+	}
+}
+`) - marks an end of code block, all symbols after ')' are ignored.
+String "Java" (from '(' to line break) defines language, that is used for correct hilighting of keywords and
+expressions. Note that inside code block you are NOT allowed to insert any control lines and symbols, the text
+inside it appears as it is!
+
+You can create lists:
+`{* - marks the beginning of the list, all symbols after the 3rd are ignored
+It also ignores any line of plain text, like this one.
+Asterisk means an unordered list.
+To create a list item, use
+`- The first list item;
+`- Every whitespace before the first non-whitespace character is eaten.
+`} marks an end.
+Lists can be ordered, like this one:
+`{1
+`-	Just place a digit after {;
+`-	It will make the list appear as ordered one.
+`}
+And nested:
+`{*
+`- First-level list item #1
+	`{1
+	`- Second-level list item #1
+	`- Second-level list item #2
+	`}
+`- First-level list item #2
+`}
+
+`[Section 3: References]
+You can make references to other pages of docs or to external web url. The former appears instead
+of the current page content and is saved to history, the latter are opened in new tab of browser.
+
+To create an internal reference, use this syntax: `{/main/0.txt}This text is displayed as link 
+text`. As you see, part between '{' and '}' is the reference.
+
+To create an external reference, use this: `<http://github.com/BobNobrain/PagedDocs/>Link text`.
+`[Section 4: Other blocks]
+You can insert an image into the page:
+`i|/images/1.jpg|Here goes description
+
+You can insert a table too:
+\`t|cols|rows
+`t|3|4
+First column			|Second column		|Third column
+Every vertical slash,		|precessed with		|one or more tabs,
+Marks the beginning		|of			|the next column.
+Line break does the same.	|Use backslash to	|escape this: \|
+After all lines were declared, the table automatically ends.
+
+To separate paragraphs inside section, you can use horizontal line:
+`= (these symbols are ignored)
+
+`[Section 5: See-also block]
+See-also block finishes the page, if it exists. Every line inside it is a unordeder list item. You
+can use plain text, inline formatting, external and internal links and comments. This block ends with the end of
+the file.
+`@ Marks the beginning of see-also block
+Example of plain text;
+`{/main/0.txt}Internal link`;
+`<http://google.com/>External link`;
+`Formatted text: `*b`, `/i`, `-s`, `_u`, `.code`;
+
+Empty lines are ignored.

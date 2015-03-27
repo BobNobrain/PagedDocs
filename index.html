@@ -28,24 +28,6 @@ subscribeOnLoad(function()
 	
 	Tabs.createTab(document.getElementById("tab1b"), document.getElementById("tab1"));
 	Tabs.createTab(document.getElementById("tab2b"), document.getElementById("tab2"));
-	
-	var navRibbon=Ribbon.create(document.getElementById("tab1"));
-	var section=navRibbon.createSection("Section", -1);
-	section.addElement(Ribbon.createButton("My button", "^", true));
-	section.addElement(Ribbon.createSpaceBlock(-1));
-	section.addElement(Ribbon.createList("My list", ["Elem 1","Elem 2","Elem 3","Elem 5","Elem 7", "Elem 11"], true, 200));
-	
-	section=navRibbon.createSection("Another section", 500);
-	
-	var group=Ribbon.createGroup(-1);
-	group.addElement(Ribbon.createTextBox("searcher", true, 200, "Placeholder test"));
-	group.addElement(Ribbon.createCheckBox("My checkbox", true, true));
-	group.addElement(Ribbon.createButton("Apply", "", true));
-	
-	section.addElement(group);
-	
-	section.addElement(Ribbon.createSpaceBlock(5));
-	section.addElement(Ribbon.createButton("Big button motherfucker!", "", true));
 });
 </script>
 <script src="scripts/interface.js" ></script>

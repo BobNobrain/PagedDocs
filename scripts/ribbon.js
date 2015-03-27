@@ -67,13 +67,47 @@ var getSectionDummy=function()
 	};
 }
 
-var getElementDummy=function()
+var getElementDummy=function(elName, elType, elWidth, isEnabled, onclickCallback)
 {
+	if(typeof elName != typeof "") elName="New element";
+	if(typeof elType != typeof 0) elType=0;
+	if(typeof elWidth != typeof 0) elWidth=-1;
+	if(typeof isEnabled != typeof false) isEnabled=true;
+	if(typeof onclickCallback != typeof function(){}) onclickCallback=function(){};
+	
 	return {
 		wrapper: null,
-		type: 0,
-		name: "New element",
-		enabled: true
+		type: elType,
+		name: elName,
+		enabled: isEnabled,
+		width: elWidth,
+		onclick: onclickCallback,
+		
+		applyWrapperWidth: function()
+		{
+			if(this.wrapper==null || this.wrapper==undefined) return;
+			
+			if(this.width>0) this.wrapper.style.width=this.width+"px";
+			else this.wrapper.style.width="";
+		},
+		
+		enable: function()
+		{
+			this.enabled=true;
+			this.recreateLayout();
+		},
+		
+		disable: function()
+		{
+			this.enabled=false;
+			this.recreateLayout();
+		},
+		
+		recreateLayout: function()
+		{
+			// do nothing, abstract
+			console.log("Smth went wrong...");
+		}
 	};
 }
 
@@ -132,26 +166,42 @@ Ribbon=
 		return dummy;
 	},
 	
-	createButton: function(label, iconChar, enabled)
+	createButton: function(label, params)//iconChar, enabled)
 	{
-		if(typeof enabled != typeof false) enabled=true;
+		if((typeof params != typeof {}) || params==null)
+		{
+			params={ iconChar:"", enabled: true, onclick: function(){}, width:-1 };
+		}
+		else
+		{
+			if(typeof params.enabled != typeof false) params.enabled=true;
+			if(typeof params.iconChar != typeof "") params.iconChar="";
+			if(typeof params.onclick != typeof function(){}) params.onclick=function(){};
+			if(typeof params.width != typeof 0) params.width=-1;
+		}
 		
-		var btn=getElementDummy();
+		var btn=getElementDummy(label, Ribbon.ELEMENT_BUTTON, params.width, params.enabled, params.onclick);
 		btn.name=label;
-		btn.type=Ribbon.ELEMENT_BUTTON;
-		btn.enabled=enabled;
+		btn.iconChar=params.iconChar;
+		/*btn.type=Ribbon.ELEMENT_BUTTON;
+		btn.enabled=params.enabled;*/
+		//btn.onclick=params.onclick;
 
 		btn.recreateLayout=function()
 		{
 			if(this.wrapper==null) this.wrapper=document.createElement("div");
 			else this.wrapper.innerHTML="";
 			
+			this.wrapper.innerHTML=this.iconChar;
+			var iconChar=this.wrapper.innerHTML;
+			this.wrapper.innerHTML="";
+			
 			this.wrapper.className="";
 			
 			this.wrapper.classList.add("button");
 			if(!this.enabled) this.wrapper.classList.add("disabled");
 			
-			if(iconChar==null || iconChar==undefined) iconChar="";
+			//if(this.iconChar==null || this.iconChar==undefined) iconChar="";
 			this.wrapper.setAttribute("data-icon", iconChar);
 			
 			lbl=document.createElement("div");
@@ -159,6 +209,15 @@ Ribbon=
 			lbl.innerHTML=this.name;
 			this.wrapper.appendChild(lbl);
 			this.labelElement=lbl;
+			
+			this.applyWrapperWidth();
+			
+			this.wrapper.element=this;
+			this.wrapper.onclick=function()
+			{
+				if(!this.element.enabled) return;
+				this.element.onclick();
+			}
 		}
 		btn.recreateLayout();
 		
@@ -189,13 +248,13 @@ Ribbon=
 	{
 		if(typeof checkable != typeof false) checkable=false;
 		if(typeof width != typeof 0) width=-1;
-		var list=getElementDummy();
+		var list=getElementDummy(name, Ribbon.ELEMENT_LIST, width, true);
 		list.name=name;
-		list.type=Ribbon.ELEMENT_LIST;
+		//list.type=Ribbon.ELEMENT_LIST;
 		list.elements=[];
 		list.checkable=checkable;
 		list.defaultElement={ enabled: false, content: Prefs.text.ribbonListDefaultElementContent }
-		list.width=width;
+		//list.width=width;
 		
 		for(var i=0; i<labels.length; i++)
 		{
@@ -212,8 +271,9 @@ Ribbon=
 			
 			if(this.checkable) this.wrapper.classList.add("checkable");
 			
-			if(this.width>0) this.wrapper.style.width=this.width+"px";
-			else this.wrapper.style.width="";
+			/*if(this.width>0) this.wrapper.style.width=this.width+"px";
+			else this.wrapper.style.width="";*/
+			this.applyWrapperWidth();
 			
 			if(this.elements.length==0)
 			{
@@ -259,13 +319,13 @@ Ribbon=
 		return list;
 	},
 	
-	createListItem: function(label, enabled, checked)
+	createListItem: function(label, enabled, checked, onclickCallback)
 	{
-		var li=getElementDummy();
-		li.type=Ribbon.ELEMENT_LIST_ITEM;
-		li.enabled=enabled;
+		var li=getElementDummy(label, Ribbon.ELEMENT_LIST_ITEM, -1, enabled, onclickCallback);
+		//li.type=Ribbon.ELEMENT_LIST_ITEM;
+		//li.enabled=enabled;
 		li.checked=checked;
-		li.name=label;
+		//li.name=label;
 		
 		li.recreateLayout=function()
 		{
@@ -279,6 +339,7 @@ Ribbon=
 			this.wrapper.element=this;
 			this.wrapper.onclick=function()
 			{
+				this.element.onclick();
 				if(!this.element.enabled) return;
 				this.element.setChecked(!this.element.checked);
 			}
@@ -303,13 +364,13 @@ Ribbon=
 	
 	createTextBox: function(name, enabled, width, placeholder)
 	{
-		if(typeof width != typeof 0) width=-1;
+		//if(typeof width != typeof 0) width=-1;
 		if(typeof placeholder != typeof "") placeholder="";
 		
-		var tb=getElementDummy();
-		tb.name=name;
-		tb.enabled=enabled;
-		tb.width=width;
+		var tb=getElementDummy(name, Ribbon.ELEMENT_TEXTBOX, width, enabled);
+		//tb.name=name;
+		//tb.enabled=enabled;
+		//tb.width=width;
 		tb.placeholder=placeholder;
 		
 		tb.recreateLayout=function()
@@ -330,8 +391,9 @@ Ribbon=
 			this.wrapper.setAttribute("placeholder", this.placeholder);
 			
 			if(!this.enabled) this.wrapper.classList.add("disabled");
-			if(this.width>0) this.wrapper.style.width=this.width+"px";
-			else this.wrapper.style.width="";
+			/*if(this.width>0) this.wrapper.style.width=this.width+"px";
+			else this.wrapper.style.width="";*/
+			this.applyWrapperWidth();
 		}
 		
 		tb.getText=function()
@@ -348,9 +410,9 @@ Ribbon=
 	{
 		if(typeof checked != typeof false) checked=false;
 		
-		var cb=getElementDummy();
-		cb.name=label;
-		cb.enabled=enabled;
+		var cb=getElementDummy(label, Ribbon.ELEMENT_CHECKBOX, -1, enabled);
+		//cb.name=label;
+		//cb.enabled=enabled;
 		cb.defaultChecked=checked;
 		
 		cb.recreateLayout=function()
@@ -375,8 +437,9 @@ Ribbon=
 			this.wrapper.appendChild(document.createTextNode(this.name));
 			
 			if(!this.enabled) this.wrapper.classList.add("disabled");
-			if(this.width>0) this.wrapper.style.width=this.width+"px";
-			else this.wrapper.style.width="";
+			/*if(this.width>0) this.wrapper.style.width=this.width+"px";
+			else this.wrapper.style.width="";*/
+			this.applyWrapperWidth();
 		}
 		
 		cb.isChecked=function()
@@ -391,10 +454,10 @@ Ribbon=
 	
 	createSpaceBlock: function(width)
 	{
-		if(typeof width != typeof 0) width=-1;
+		//if(typeof width != typeof 0) width=-1;
 		
-		var space=getElementDummy();
-		space.width=width;
+		var space=getElementDummy("Space", Ribbon.ELEMENT_SPACE, width, true);
+		//space.width=width;
 		
 		space.recreateLayout=function()
 		{
@@ -404,8 +467,9 @@ Ribbon=
 			}
 			this.wrapper.className="";
 			this.wrapper.classList.add("space");
-			if(this.width>0) this.wrapper.style.width=this.width+"px";
-			else this.wrapper.style.width="";
+			/*if(this.width>0) this.wrapper.style.width=this.width+"px";
+			else this.wrapper.style.width="";*/
+			this.applyWrapperWidth();
 		}
 		
 		space.recreateLayout();
@@ -415,10 +479,10 @@ Ribbon=
 	
 	createGroup: function(width)
 	{
-		if(typeof width != typeof 0) width=-1;
+		//if(typeof width != typeof 0) width=-1;
 		
-		var group=getElementDummy();
-		group.width=width;
+		var group=getElementDummy("Group", Ribbon.ELEMENT_GROUP, width, true);
+		//group.width=width;
 		group.elements=[];
 		
 		group.addElement=function(elem)
@@ -435,8 +499,9 @@ Ribbon=
 			}
 			this.wrapper.className="";
 			this.wrapper.classList.add("group");
-			if(this.width>0) this.wrapper.style.width=this.width+"px";
-			else this.wrapper.style.width="";
+			/*if(this.width>0) this.wrapper.style.width=this.width+"px";
+			else this.wrapper.style.width="";*/
+			this.applyWrapperWidth();
 			
 			for(var i=0; i<this.elements.legth; i++)
 			{

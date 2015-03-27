@@ -118,7 +118,7 @@
 	top: calc(100% - 1.1em - 7px);
 }
 #ribbon .button.disabled:active .label {
-	top: 0px;
+	top: calc(100% - 1.1em - 10px);
 	position: relative;
 }
 
