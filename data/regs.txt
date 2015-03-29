@@ -1,0 +1,9 @@
+``[^\n]*?\n				Returns all comments, let's delete them
+
+(^[^`]*?\n)(`\[)			Returns header in the first group, when comments are deleted
+
+(`\[)(.*?)(\])(.*)			Section: &2 is title, &4 is a comment (all except &2 > remove)
+
+(`\*)(.*?)(`)				Bold formatting (&2 is text)
+
+(`@.*\n)([^]*)$				SA block, &2 is content

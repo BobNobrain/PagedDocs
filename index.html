@@ -28,6 +28,14 @@ subscribeOnLoad(function()
 	
 	Tabs.createTab(document.getElementById("tab1b"), document.getElementById("tab1"));
 	Tabs.createTab(document.getElementById("tab2b"), document.getElementById("tab2"));
+	
+	document.decoder=createWikiDecoder("");
+	
+	ContentManager.loadWiki("data/wiki.txt", function(response)
+	{
+		document.decoder.source=response;
+		Interface.content.show(document.decoder.parse());
+	});
 });
 </script>
 <script src="scripts/interface.js" ></script>
@@ -36,6 +44,7 @@ subscribeOnLoad(function()
 <script src="scripts/navigation.js" ></script>
 <script src="scripts/ribbon.js" ></script>
 <script src="scripts/syntax.js" ></script>
+<script src="scripts/wiki.js" ></script>
 <script src="scripts/contentman.js" ></script>
 </head>
 <body onload='onDocumentLoaded();'>

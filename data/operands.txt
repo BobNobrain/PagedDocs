@@ -1,0 +1,32 @@
+﻿				STARTS			ENDS
+Global blocks:			used to created document macrostructure
+Doc title			At document start	`[ or `@
+`[Section]			`[			`[ or `@
+`@				`@			eof
+
+Blocks: (inside section)	display: block
+Plain text			after `cmd lines	at `cmd lines
+`(Listing)			`(			`)
+`{?List}			`{* or `{#		`}
+`+ listitem			`+			`} or `+
+`t|| table			`t			after rows exhausted
+Table row			line start		after columns exhausted
+Table cell			line start or \t|	\t| or \n
+
+Lines:				sigle command lines
+``Comment			``			\n
+`i|| Image			`i			\n
+`= hr				`=			after 2nd sym
+
+Formattings:			are used inside plain text & inside `@ options
+`*bold`				`*			`
+`/italic`			`/			`
+`_underlined`			`_			`
+`-deleted`			`-			`
+`.code (monospace)`		`.			`
+`{}` refs			`{			`
+`<>` links			`<			`
+
+Features:
+\` or \| Escaping		inside plain text (#1), inside table (#2)
+\n\n Line breaks		Inside plain text

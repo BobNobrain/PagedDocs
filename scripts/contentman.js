@@ -225,6 +225,25 @@ ContentManager=
 		}
 	},
 	
+	loadWiki: function(filename, callback)
+	{
+		xhr=new window.XMLHttpRequest();
+		xhr.open("GET", filename, true);
+		xhr.setRequestHeader('Content-Type', 'text/plain');
+		xhr.send(null);
+		
+		xhr.onreadystatechange=function()
+		{
+			if(xhr.readyState==4)
+			{
+				if(xhr.status==200)
+				{
+					callback(xhr.responseText);
+				}
+			}
+		}
+	},
+	
 	parseXML: function(xmlRoot)
 	{
 		var wrapper=document.createElement("div");

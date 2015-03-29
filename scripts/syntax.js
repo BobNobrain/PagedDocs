@@ -76,7 +76,7 @@ SyntaxAnalyzer=
 				//code=eval();
 			}
 		}
-		else console.log("Your language "+lang+" was not found!");
+		else console.log("Your language '"+lang+"' was not found!");
 		
 		// cutting first empty symbols
 		// TODO: maybe do the same with ending?

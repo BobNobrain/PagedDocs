@@ -1,1 +1,22 @@
-﻿This is my test text, кириллица, <code>html</code> tags usage. <br /> Cannot understand Y U tryin' 2 parse it, stpid browser!
+﻿``comment
+
+A head title
+``f
+
+`[Section 1] sdlgkdfgn
+My text, formatted with `*bold` and a `{/main/0.txt/}reference` inside text. And a `{/main/0.txt}multiline
+reference` here.
+
+`[Section 2]fg=
+``
+List
+`{*
+`+1
+`+2
+`+3 (`*bold`)
+`}
+
+`@
+Hmmm
+`_undrln`
+`{ref}ref`
