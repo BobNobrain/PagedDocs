@@ -283,3 +283,44 @@ div.dclsd-icon {
 	font-style: normal;
 	font-weight: normal;
 }
+
+#text table, tr, td {
+	border: 1px solid #009bff;
+	border-collapse: collapse;
+}
+#text table {
+	width: 100%;
+}
+#text td {
+	padding: 3px;
+}
+
+#text hr {
+	width: 95%;
+	color: #0065A6;
+	border-style: solid;
+}
+
+#text .figure {
+	width: calc(100% - 52px);
+	margin: 10px 25px 10px 25px;
+	border: 1px solid #009bff;
+}
+#text .figure img {
+	margin: 0px auto;
+	display: block;
+	max-width: 100%; /* this magic creates a limit for image width */
+}
+#text .figure .label {
+	background: #009bff;
+	color: #fff;
+	padding: 5px;
+}
+
+#text a, #text a:visited {
+	color: #0065A6;
+}
+#text a:hover {
+	color: #009bff;
+	text-decoration: none;
+}

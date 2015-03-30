@@ -75,7 +75,7 @@ text`. As you see, part between '{' and '}' is the reference.
 To create an external reference, use this: `<http://github.com/BobNobrain/PagedDocs/>Link text`.
 `[Section 4: Other blocks]
 You can insert an image into the page:
-`i|/images/1.jpg|Here goes description
+`i|/images/1.jpg|A cat is surprised of being at the page
 
 You can insert a table too:
 \`t|cols|rows

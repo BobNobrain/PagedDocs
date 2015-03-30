@@ -128,6 +128,7 @@ function createWikiDecoder(text)
 			this.parsed="";
 			this.errors=[];
 			if(!this.ch(this.source.length-1)!='\n') this.source+='\n';
+			this.source=this.source.replace(/\r/g, "");
 			
 			// reading gblocks
 			
@@ -584,7 +585,7 @@ function createWikiDecoder(text)
 				return;
 			}
 			this.incp();
-			this.apd("<div class='figure'><img src='");
+			this.apd("<div class='figure'><img src='"+Prefs.dataRootUrl);
 			var text=false;
 			while(!this.eof())
 			{
