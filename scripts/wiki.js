@@ -121,6 +121,35 @@ function createWikiDecoder(text)
 			this.parsed+=str;
 		},
 		
+		// is this.ch() a control char?
+		isctrl: function()
+		{
+			if(this.ch()!='`') return false;
+			var i=-1;
+			while(this.ch(i)=='\\')
+			{
+				--i;
+			}
+			i=-i-1;
+			// i%2 == 0 => smth like "\\\\`" => not escaped
+			// i%2 == 1 => smth like "\\\`" => escaped
+			return i%2==0;
+		},
+		
+		// is this.ch() escaped?
+		escaped: function()
+		{
+			var i=-1;
+			while(this.ch(i)=='\\')
+			{
+				--i;
+			}
+			i=-i-1;
+			// i%2 == 0 => smth like "\\\\?" => not escaped
+			// i%2 == 1 => smth like "\\\?" => escaped
+			return i%2!=0;
+		},
+		
 		parse: function()
 		{
 			this.pos=0;
@@ -402,12 +431,19 @@ function createWikiDecoder(text)
 			this.apd('<'+fmt+'>');
 			while(!this.eof())
 			{
-				if(this.ch()=='`')
+				if(this.isctrl())
 				{
 					//end of fmt
 					this.incp();
 					this.apd('</'+fmt+'>');
 					return;
+				}
+				if(this.ch()=='\\' && !this.escaped())
+				{
+					// ch() is '\' and it's not escaped => it's escaping char
+					this.incp();
+					console.log("Unescaped");
+					continue;
 				}
 				this.apd(this.ch());
 				if(this.ch()=='\n')
@@ -429,6 +465,11 @@ function createWikiDecoder(text)
 			while(!this.eof())
 			{
 				var c=this.ch();
+				if(c=='\\' && !this.escaped())
+				{
+					this.incp();
+					continue;
+				}
 				if(c=='}')
 				{
 					text=true;
@@ -436,7 +477,7 @@ function createWikiDecoder(text)
 					this.incp();
 					continue;
 				}
-				if(c=='`')
+				if(this.isctrl())
 				{
 					if(!text)
 					{
@@ -468,7 +509,7 @@ function createWikiDecoder(text)
 					this.incp();
 					continue;
 				}
-				if(c=='`')
+				if(this.isctrl())
 				{
 					if(!text)
 					{
@@ -480,6 +521,11 @@ function createWikiDecoder(text)
 					this.apd("</a>");
 					this.incp();
 					return;
+				}
+				if(c=='\\' && !this.escaped())
+				{
+					this.incp();
+					continue;
 				}
 				this.apd(c);
 				this.incp();
@@ -508,7 +554,7 @@ function createWikiDecoder(text)
 			while(!this.eof())
 			{
 				this.skipWhiteSpace();
-				if(this.ch()=='`')
+				if(this.isctrl())
 				{
 					if(this.ch(1)=='+')
 					{
@@ -549,7 +595,7 @@ function createWikiDecoder(text)
 			while(!this.eof())
 			{
 				this.skipWhiteSpace();
-				if(this.ch()=='`')
+				if(this.isctrl())
 				{
 					if(this.ch(1)=='+')
 					{
@@ -685,14 +731,8 @@ function createWikiDecoder(text)
 						this.incp();
 						break;
 					}
-					else if(this.ch()=='|')
+					else if(this.ch()=='|' && !this.escaped())
 					{
-						if(this.ch(-1)=='\\')
-						{
-							//escaped |
-							this.incp();
-							continue;
-						}
 						if(this.ch(-1)=='\t')
 						{
 							// table cells separator found
@@ -705,11 +745,9 @@ function createWikiDecoder(text)
 						this.error("Unexpected '|' char inside table cell");
 						this.incp();
 					}
-					else if(this.ch()=='\\')
+					else if(this.ch()=='\\' && !this.escaped())
 					{
 						//escaping char
-						if(this.ch(1)=='|')
-						this.incp();
 						this.incp();
 					}
 					else

@@ -21,7 +21,7 @@ the latters appear separated.
 This also works in every point of line.
 
 `[Section 2: formatting]
-You can use next formatting for the text: `*bold`, `/italic`, `_underlined`, `-deleted`, `.code (monospace)`.
+You can use next formatting for the text: `*b\`old`, `/italic`, `_underlined`, `-deleted`, `.code (monospace)`.
 
 This emphasiszes text between the first found control char and next control char (if they're not escaped, of
 course) with format, given in the char next to the first control char. You cannot colorize the text or change

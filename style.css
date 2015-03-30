@@ -290,6 +290,7 @@ div.dclsd-icon {
 }
 #text table {
 	width: 100%;
+	margin: 10px 0px;
 }
 #text td {
 	padding: 3px;
@@ -323,4 +324,10 @@ div.dclsd-icon {
 #text a:hover {
 	color: #009bff;
 	text-decoration: none;
+}
+
+#text code {
+	font-size: 1.2em;
+	border: 1px solid #ddd;
+	background: #fff;
 }
