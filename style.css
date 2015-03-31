@@ -246,11 +246,44 @@ div.dclsd-icon {
 .listing {
 	font-family: "Courier New", Courier, monospace;
 	border: 1px solid #009BFF;
-	background: #eee;
-	padding: 5px;
+	border-left-width: 5px;
+	background: #fff;
 	margin: 10px 2px;
-	overflow: auto;
+	overflow-x: auto;
 	word-break: keep-all;
+	
+	counter-reset: line 0;
+	position: relative;
+	padding-left: 40px; /* .line::before - 5*2px padding + 30px width */
+}
+.listing .line {
+	padding: 0px 2px;
+}
+.listing .line::before {
+	background: #eee;
+	content: counter(line);
+	counter-increment: line 1;
+	font-family: inherit;
+	padding: 0px 5px;
+	margin-right: 2px;
+	width: 30px;
+	overflow: hidden;
+	text-align: right;
+	display: block;
+	float: left;
+	position: absolute;
+	left: 0px;
+}
+.listing .line::after {
+	content: " "; /* some of black magic: alt+255 char */
+}
+
+.listing .line:hover {
+	background: #73C8FF;
+}
+.listing .line:hover::before {
+	background: #009bff;
+	color: #fff;
 }
 
 .listing .comment, .listing .comment strong, .listing .comment em, .listing .comment i, .listing .comment .string {
@@ -330,4 +363,70 @@ div.dclsd-icon {
 	font-size: 1.2em;
 	border: 1px solid #ddd;
 	background: #fff;
+}
+
+#text .spoiler {
+	border: 1px solid #009bff;
+	width: 96%;
+	margin-left: 2%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#text .spoiler .content {
+	padding: 2px;
+	display: none;
+}
+#text .spoiler.expanded .content {
+	display: block;
+}
+#text .spoiler .label {
+	color: #fff;
+	background: #009bff;
+	cursor: pointer;
+	padding: 2px;
+	position: relative;
+	font-size: 12px;
+}
+#text .spoiler .label::after {
+	content: "▾";
+	display: block;
+	position: absolute;
+	right: 5px;
+	top: -1px;
+	font-weight: bold;
+	height: 16px; /* 1px of border of .spoiler + 12px of text + 2px+2px of padding + 5px of magic */
+	width: 20px;
+	font-size: 12px;
+	text-align: center;
+}
+#text .spoiler .label:hover::after {
+	background: #fff;
+	color: #009bff;
+}
+#text .spoiler.expanded .label::after {
+	content: "▴";
+}
+
+#text .quote {
+	border: 1px solid #0065A6;
+	border-left-width: 2px;
+	background: #ddf;
+	padding: 2px;
+	margin: 5px;
+}
+#text .quote .content {
+	margin-left: 50px;
+}
+#text .quote .label {
+	margin-right: 20px;
+	text-align: right;
+	font-style: italic;
+	margin-top: 5px;
+}
+#text .quote::before {
+	content: "“";
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 60px;
+	position: absolute;
+	margin-left: 10px;
 }

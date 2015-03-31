@@ -21,7 +21,8 @@ SyntaxAnalyzer=
 				"public", "protected", "private", "class", "interface", "enum", "int",
 				"float", "double", "byte", "package", "import", "new", "return", "if",
 				"for", "while", "do", "try", "catch", "finally", "assert", "long",
-				"else", "throw", "break", "continue", "boolean", "extends", "implements"
+				"else", "throw", "break", "continue", "boolean", "extends",
+				"implements", "this", "true", "false"
 			],
 			embeded: [ "static", "final" ],
 			colored: [ "void", "abstract", "throws" ],
@@ -29,8 +30,9 @@ SyntaxAnalyzer=
 		}
 	},
 	
-	processCode: function(code, lang)
+	processCode: function(code, lang, numLines)
 	{
+		if(typeof numLines != typeof false) numLines=true;
 		// <, >, & and chars
 		//code=escapeHtmlEntities(code);
 		
@@ -87,7 +89,8 @@ SyntaxAnalyzer=
 		
 		// transfering to html chars
 		code=code.replace(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;");
-		code=code.replace(/\n/g, "<br />\n");
+		code=code.replace(/(^)([^\n]*?)($)/gm, "<div class='line'>$2</div>");
+		//code=code.replace(/\n/g, "<br />\n");
 		return code;
 	}
 }

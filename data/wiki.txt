@@ -27,7 +27,17 @@ This emphasiszes text between the first found control char and next control char
 course) with format, given in the char next to the first control char. You cannot colorize the text or change
 it's font. Emphasized string can be broken into many lines.
 
-There are also block formating type. They format the whole block of text as a code, like this:
+`[Section 3: References]
+You can make references to other pages of docs or to external web url. The former appears instead
+of the current page content and is saved to history, the latter are opened in new tab of browser.
+
+To create an internal reference, use this syntax: `{/main/0.txt}This text is displayed as link 
+text`. As you see, part between '{' and '}' is the reference.
+
+To create an external reference, use this: `<http://github.com/BobNobrain/PagedDocs/>Link text`.
+`[Section 4: Blocks]
+
+Blocks are fully formatted content entries that appear as blocks. For example, listing block:
 `(Java
 public class Programs extends Shit
 {
@@ -65,17 +75,11 @@ And nested:
 `+ First-level list item #2
 `}
 
-`[Section 3: References]
-You can make references to other pages of docs or to external web url. The former appears instead
-of the current page content and is saved to history, the latter are opened in new tab of browser.
-
-To create an internal reference, use this syntax: `{/main/0.txt}This text is displayed as link 
-text`. As you see, part between '{' and '}' is the reference.
-
-To create an external reference, use this: `<http://github.com/BobNobrain/PagedDocs/>Link text`.
-`[Section 4: Other blocks]
 You can insert an image into the page:
 `i|/images/1.jpg|A cat is surprised of being at the page
+
+To separate paragraphs inside section, you can use horizontal line:
+`= (these symbols are ignored)
 
 You can insert a table too:
 \`t|cols|rows
@@ -86,10 +90,29 @@ Marks the beginning		|of			|the next column.
 Line break does the same.	|Use backslash to	|escape this: \|
 After all lines were declared, the table automatically ends.
 
-To separate paragraphs inside section, you can use horizontal line:
-`= (these symbols are ignored)
+`[Section 5: More blocks]
+"Spoiler" block can hide huge volumes of text into collapsable entry:
+`s|Spoiler title
+Some text inside spoiler, it can contain any block (except gblocks like content sections and SA-blocks).
+For example, a `/listing` of `.collapse()` function:
+`(Java
+void collapse()
+{
+	this.reduceHeightTo(0);
+	this.animate();
+}
+`)
+Spoiler block ends with this:
+(\`s declaration that doesn't content '|' after 's')
+`s
 
-`[Section 5: See-also block]
+Quote block:
+`"
+Here CANNOT be placed any fmts, other blocks or smth else. It can contain only plain text.
+In the ending of the block, after '"', you can point an author of the quote, like here:
+`"Author
+
+`[Section 6: See-also block]
 See-also block finishes the page, if it exists. Every line inside it is a unordeder list item. You
 can use plain text, inline formatting, external and internal links and comments. This block ends with the end of
 the file.

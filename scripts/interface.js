@@ -1,6 +1,20 @@
 var navWrapper=null, textWrapper=null;
 var ribbonTab1=null, ribbonTab2=null;
 
+// external function, used in spoilers caption
+function toggleSpoiler(element)
+{
+	element=element.parentNode;
+	if(element.classList.contains("expanded"))
+	{
+		element.classList.remove("expanded");
+	}
+	else
+	{
+		element.classList.add("expanded");
+	}
+}
+
 var getIcon=function(li)
 {
 	var divs=li.getElementsByTagName("div");

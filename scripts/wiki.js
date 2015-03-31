@@ -321,6 +321,14 @@ function createWikiDecoder(text)
 					// table
 					this.readTableBlock();
 					break;
+				case 's':
+					// spoiler block (whether start or end, it doesn't make sense
+					this.readSpoilerBlock();
+					break;
+				case '"':
+					// quote
+					this.readQuoteBlock();
+					break;
 				case '(':
 					// listing
 					this.readListingBlock();
@@ -356,7 +364,7 @@ function createWikiDecoder(text)
 			while(!this.eof())
 			{
 				// reading entries
-				if(this.ch()=='`' && this.ch(-1)!='\\')
+				if(this.isctrl())
 				{
 					//this whould be a fmt
 					switch(this.ch(1))
@@ -394,14 +402,11 @@ function createWikiDecoder(text)
 				else
 				{
 					
-					if(this.ch()=='\\')
+					if(this.ch()=='\\' && !this.escaped())
 					{
-						if(this.ch(1)=='`')
-						{
-							// that is escaping char, miss it
-							this.incp();
-							continue;
-						}
+						// that is escaping char, miss it
+						this.incp();
+						continue;
 					}
 					//just a char
 					this.apd(this.ch());
@@ -813,6 +818,81 @@ function createWikiDecoder(text)
 			this.apd(SyntaxAnalyzer.processCode(code, lang));
 			
 			this.apd("</div>");
+		},
+		
+		readSpoilerBlock: function()
+		{
+			// `s|%title%
+			// ^
+			this.incp(); this.incp();
+			if(this.ch()=='|')
+			{
+				// spoiler block begins here, and everything before '\n'
+				// is it's title
+				this.apd("<div class='spoiler'><div class='label' onclick='toggleSpoiler(this);'>");
+				// toggleSpoiler(HTMLElement) is a function from interface.js
+				this.incp();
+				while(!this.eof())
+				{
+					//reading spoiler title
+					if(this.ch()=='\n')
+					{
+						// spoiler title end
+						this.apd("</div><div class='content'>");
+						this.incp();
+						break;
+					}
+					this.apd(this.ch());
+					this.incp();
+				}
+			}
+			else
+			{
+				//it's the end of spoiler block
+				this.apd("</div></div>");
+			}
+		},
+		
+		readQuoteBlock: function()
+		{
+			// `"
+			// ^
+			this.incp(); this.incp();
+			this.skipWhiteSpace();
+			
+			this.apd("<div class='quote'><div class='content'>");
+			while(!this.eof())
+			{
+				if(this.isctrl())
+				{
+					this.incp();
+					if(this.ch()=='"')
+					{
+						// seems to be the end
+						this.incp();
+						break;
+					}
+					else
+					{
+						this.error("Unexpected control char inside quote block");
+						continue;
+					}
+				}
+				this.apd(this.ch());
+				this.incp();
+			}
+			this.apd("</div><div class='label'>");
+			while(!this.eof())
+			{
+				//now, read until '\n' for the author
+				if(this.ch()=='\n')
+				{
+					break;
+				}
+				this.apd(this.ch());
+				this.incp();
+			}
+			this.apd("</div></div>");
 		},
 		
 		// reads SA, stops on eof
