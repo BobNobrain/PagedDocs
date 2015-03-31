@@ -1,0 +1,66 @@
+﻿Main #0
+
+`[Section 1]
+Don't know what to write here; so catch a cat:
+`i|images/1.jpg|The cat is glad to see you too
+
+`[Section 2]
+Let the code to speak instead of you!
+`(Java
+// Yep, im code & im gonna talk 2 U!
+package garbage.heap;
+
+import garbage.abstract.AbstractUselessClass;
+import garbage.generators.strings.SpeechGenerator;
+import magic.superentities.GreatPrimordialFire;
+import magic.carma.*;
+
+public class Talker extends AbstractUselessClass
+{
+	private SpeechGenerator gen;
+
+
+	public Talker()
+	{
+		super.doNothing();
+		gen=new SpeechGenerator(25, 0.98F, "A-Za-z0-9", null, null, this, null);
+	}
+
+
+	public void Talk(AbstractUselessClass subject)
+	{
+		gen.init(subject);
+		while(!gen.isTired())
+		{
+			gen.speak(gen.randomAmount());
+		}
+		gen.recover();
+		if(!subject.isCovered())
+		{
+			gen.punish();
+		}
+		else
+		{
+			gen.incrementCarma();
+		}
+	}
+
+	public boolean exterminate()
+	{
+		try
+		{
+			GreatPrimordialFire.swallow(this.gen);
+			return true;
+		}
+		catch(TooHighCarmaException ex)
+		{
+			gen.releaseAnger(this, null);
+			return false;
+		}
+	}
+}
+`)
+
+`@ Marks the beginning of see-also block
+`{main/1.txt}main #1`;
+`{ui/2.txt}ui #2`;

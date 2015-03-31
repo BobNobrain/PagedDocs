@@ -22,7 +22,7 @@ SyntaxAnalyzer=
 				"float", "double", "byte", "package", "import", "new", "return", "if",
 				"for", "while", "do", "try", "catch", "finally", "assert", "long",
 				"else", "throw", "break", "continue", "boolean", "extends",
-				"implements", "this", "true", "false"
+				"implements", "this", "true", "false", "null", "super"
 			],
 			embeded: [ "static", "final" ],
 			colored: [ "void", "abstract", "throws" ],

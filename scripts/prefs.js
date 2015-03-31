@@ -12,7 +12,8 @@ Prefs.navigation={};
 Prefs.navigation.maxHistoryLength=20;
 Prefs.navigation.caseSensitiveSearch=false;
 Prefs.navigation.searchOnlyInTitles=true;
-Prefs.navigation.homePageUrl="data/main/1.xml";
+Prefs.navigation.homePageUrl="data/home.txt";
+Prefs.navigation.page404Url="data/404.txt";
 
 /*===== [ Strings ] =====*/
 Prefs.text={};
@@ -21,6 +22,7 @@ Prefs.text.loading="Загрузка...";
 Prefs.text.initialContent="Выберите любой раздел в списке слева...";
 Prefs.text.initialRibbonContent="Панель загружается...";
 Prefs.text.ribbonListDefaultElementContent="(пусто)";
+Prefs.text.noDate="(дата неизвестна)";
 
 Prefs.navigation.text={};
 Prefs.navigation.text.scrollToTop="Наверх";

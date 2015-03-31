@@ -166,7 +166,7 @@ function createWikiDecoder(text)
 			
 			this.readHeader();
 			
-			this.apd("<div id='content-header'>"); // content sections
+			this.apd("<div>"); // content sections
 			
 			this.skipWhiteSpace();
 			

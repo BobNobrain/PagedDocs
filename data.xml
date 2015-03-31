@@ -1,8 +1,14 @@
 ﻿<?xml version="1.0"?>
 <nav>
-	<item type="composite" base="main/" data="0.txt" label="main">
+	<item type="composite" base="main/" label="main">
+		<ver data="0.alpha.txt" />
+		<ver data="0.beta.txt" date="01.04.2015" />
+		
 		<item type="final" data="1.txt" label="main #1" />
-		<item type="final" data="2.txt" label="main #2" />
+		
+		<item type="final" data="2.a.txt" label="main #2" />
+		<item type="final" data="2.b.txt" date="31.03.2015" label="main #2" />
+		<item type="final" data="2.c.txt" date="01.04.2015" label="main #2" />
 	</item>
 	<item type="group" base="ui/" label="ui">
 		<item type="final" data="1.txt" label="ui #1" />

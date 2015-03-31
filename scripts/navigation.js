@@ -34,6 +34,7 @@ Navigation=
 	navigate: function(ref)
 	{
 		navigateTo(ref);
+		console.log(ref);
 		if(Navigation.cpos!=Navigation.history.length-1)
 		{
 			// We've travelled (far) back and need to erase history

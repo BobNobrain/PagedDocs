@@ -103,13 +103,13 @@ var createListNode=function(node)
 		label.onclick=function()
 		{
 			if(!Interface.navigator.isActive(this.parentNode))
-				Navigation.navigate(this.parentNode.treeNode.data);
+				Navigation.navigate(this.parentNode.treeNode.data.current);
 			Interface.navigator.activate(this.parentNode);
 		}
 		icon.onclick=function()
 		{
 			if(!Interface.navigator.isActive(this.parentNode))
-				Navigation.navigate(this.parentNode.treeNode.data);
+				Navigation.navigate(this.parentNode.treeNode.data.current);
 			Interface.navigator.activate(this.parentNode);
 		}
 		break;
@@ -127,7 +127,8 @@ var createListNode=function(node)
 		label.onclick=function()
 		{
 			if(!Interface.navigator.isActive(this.parentNode))
-				Navigation.navigate(this.parentNode.treeNode.data);
+				Navigation.navigate(this.parentNode.treeNode.data.current);
+			console.log(this.parentNode.treeNode.data.current);
 			Interface.navigator.activate(this.parentNode);
 			Interface.navigator.expand(this.parentNode);
 		}

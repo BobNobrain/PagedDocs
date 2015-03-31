@@ -1,36 +1,91 @@
+// collapses nodes with equal labels, assembling them into version sets
+var collapseVersions=function(nodes)
+{
+	var assemblies={};
+	
+	for(var i=0; i<nodes.length; i++)
+	{
+		if(assemblies[nodes[i].label]==undefined)
+		{
+			assemblies[nodes[i].label]=[];
+		}
+		assemblies[nodes[i].label].push(nodes[i]);
+	}
+	
+	// clearing nodes array
+	while(nodes.pop()!=undefined);
+	
+	for(label in assemblies)
+	{
+		var arr=assemblies[label];
+		var lastVer=arr[arr.length-1];
+		console.log(arr);
+		for(var i=arr.length-2; i>=0; i--)
+		{
+			lastVer.data.versions.push({ date:arr[i].data.versions[0].dateStr, data:arr[i].data.versions[0].data });
+		}
+		nodes.push(lastVer);
+	}
+}
+
 // recursive data.xml parser
 var processItem=function(base, itm)
 {
 	var label=itm.getAttribute("label");
 	var type=itm.getAttribute("type");
 	
+	var data=null, nbase="";
+	
+	
+	var date=itm.getAttribute("date");
+	if(typeof date != typeof "") date=Prefs.text.noDate;
+	
 	switch(type)
 	{
 	case "composite":
 		type=Tree.NODE_COMPOSITE;
+		nbase=itm.getAttribute("base");
+		if(nbase==null || nbase==undefined) nbase="";
+		
+		// defining versions of composite
+		
 		break;
 	case "group":
 		type=Tree.NODE_GROUP;
+		nbase=itm.getAttribute("base");
+		if(nbase==null || nbase==undefined) nbase="";
+		
 		break;
 	case "final":
 		type=Tree.NODE_FINAL;
+		data=base+nbase+itm.getAttribute("data");
+		
 		break;
 	}
 	
-	var data=null, nbase="";
+	var node=Tree.createNode(label, type, {
+		current: data,
+		versions: [ { dateStr:date, data:data } ]
+	});
 	
-	if(type!=Tree.NODE_FINAL)
+	/*
 	{
-		nbase=itm.getAttribute("base");
-		if(nbase==null || nbase==undefined) nbase="";
+		label: String,
+		type: Number,
+		data:
+		{
+			current: String,
+			versions:
+			[
+				{
+					dateStr: String,
+					data: String
+				},
+				...
+			]
+		}
 	}
-	
-	if(type!=Tree.NODE_GROUP)
-	{
-		data=base+nbase+itm.getAttribute("data");
-	}
-	
-	var node=Tree.createNode(label, type, data);
+	*/
 	
 	if(type!=Tree.NODE_FINAL)
 	{
@@ -41,8 +96,19 @@ var processItem=function(base, itm)
 			{
 				node.appendChild(processItem(base+nbase, child));
 			}
+			if(child.tagName=="ver" && type==Tree.NODE_COMPOSITE)
+			{
+				var vdate=child.getAttribute("date");
+				if(typeof vdate != typeof "") vdate=Prefs.text.noDate;
+				var vdata=base+nbase+child.getAttribute("data");
+				node.data.versions.push({ dateStr:vdate, data:vdata });
+				// overwritting current version with a newer one
+				// (up-to-date version is considered to be in the last <ver> node
+				node.data.current=vdata;
+			}
 			child=child.nextElementSibling;
 		}
+		collapseVersions(node.childNodes);
 	}
 	
 	return node;
@@ -234,7 +300,19 @@ ContentManager=
 		xhr=new window.XMLHttpRequest();
 		xhr.open("GET", filename, true);
 		xhr.setRequestHeader('Content-Type', 'text/plain');
-		xhr.send(null);
+		try
+		{
+			xhr.send(null);
+		}
+		catch(e)
+		{
+			// probably file not found
+			console.log(e);
+			xhr=new window.XMLHttpRequest();
+			xhr.open("GET", Prefs.navigation.page404Url, true);
+			xhr.setRequestHeader('Content-Type', 'text/plain');
+			xhr.send(null);
+		}
 		
 		xhr.onreadystatechange=function()
 		{
@@ -243,6 +321,10 @@ ContentManager=
 				if(xhr.status==200)
 				{
 					callback(xhr.responseText);
+				}
+				else
+				{
+					console.log(xhr.status);
 				}
 			}
 		}

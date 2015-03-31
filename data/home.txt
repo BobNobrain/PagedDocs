@@ -1,0 +1,36 @@
+﻿Home page
+`[About]
+PagedDocs is a system of wiki-formatted ierarchic pages. It's main supposed usage
+is creating huge documentation systems with lots of pages. PagedDocs is `*free` and
+`*open-source` project. It's latest version is always available at
+`<https://github.com/BobNobrain/PagedDocs/>GitHub repo`.
+`[Quick user guide]
+The web page you're looking at right now is an interface of navigation and
+wiki-browsing system. It contains 3 parts: a `/toolbar` with some useful functions
+at the top of the page, a `/navigation tree` at the left side and the `/pages viewer`
+containing this text.
+
+
+Toolbar contains two tabs: `/navigation tab` and `/view tab`. In the former, all the
+functions you can use to navigate across pages are placed:
+`{*
+	`+ `/Scroll-to-top button` (evident);
+	`+ `/Journal section` allows you to manage and navigate across your browsing history;
+	`+ `/Search section` provides you with search tools.
+`}
+The latter contains visual settings of the page, such as:
+`{*
+	`+ `/Color theme section` allows you to find the most comfortable look of the page;
+	`+ `/Syntax hilighting section` can be used to ajust default appearance settings of code blocks at the page.
+`}
+
+
+The tree can be used for navigating directly to the page, built into the whole
+documentation ierarchy.
+
+And the viewer allows you to see a rendered wiki-page, containing differently
+formatted text blocks, tables and images.
+`@
+If you want to create your own pages, check out `{how2/wiki.txt}this` manual;
+Also, you may need `{how2/tree.txt}some info` about managing pages ierarchy;
+For truly interested men, source code will be the best manual.

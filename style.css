@@ -190,6 +190,10 @@ div.dclsd-icon {
 
 /* Content */
 
+#content-header {
+	text-align: center;
+}
+
 #text > div > h2 {
 	font-size: 28px;
 	font-family: "Courier New", Courier, monospace;
