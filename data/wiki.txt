@@ -14,11 +14,13 @@ insert n line breaks, you would see n-1 ones. The single line break is converted
 However, if you have a control line (started with '`' symbol) between two lines of plain text,
 the latters appear separated.
 
-``To avoid '`' character, just escape it with '\' char, like this:
+``To avoid '\`' character, just escape it with '\' char, like this:
 
 \` This line begins with control character.
 
-This also works in every point of line.
+This also works in every point of line. To escape the backslash, double it: \\`*b`.
+
+HTML entities are NOT allowed. Everything like <div class=""></div>, &copy; and others will appear as is.
 
 `[Section 2: formatting]
 You can use next formatting for the text: `*b\`old`, `/italic`, `_underlined`, `-deleted`, `.code (monospace)`.

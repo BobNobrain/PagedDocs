@@ -118,6 +118,9 @@ function createWikiDecoder(text)
 		
 		apd: function(str)
 		{
+			if(str=='<') str="&lt;";
+			if(str=='>') str="&gt;";
+			if(str=='&') str="&amp;";
 			this.parsed+=str;
 		},
 		
