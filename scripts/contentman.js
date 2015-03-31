@@ -206,8 +206,10 @@ ContentManager=
 		}
 	},
 	
-	load: function(filename)
+	loadXML: function(filename, callback)
 	{
+		if(typeof callback != typeof eval) callback=function(){};
+		
 		xml=new window.XMLHttpRequest();
 		xml.open("GET", filename, true);
 		xml.setRequestHeader('Content-Type', 'text/xml')
@@ -219,7 +221,7 @@ ContentManager=
 			{
 				if(xml.status==200)
 				{
-					Interface.content.show(ContentManager.parseXML(xml.responseXML.firstElementChild));
+					callback(ContentManager.parseXML(xml.responseXML.firstElementChild));
 				}
 			}
 		}
@@ -227,6 +229,8 @@ ContentManager=
 	
 	loadWiki: function(filename, callback)
 	{
+		if(typeof callback != typeof eval) callback=function(){};
+		
 		xhr=new window.XMLHttpRequest();
 		xhr.open("GET", filename, true);
 		xhr.setRequestHeader('Content-Type', 'text/plain');
@@ -242,6 +246,14 @@ ContentManager=
 				}
 			}
 		}
+	},
+	
+	load: function(filename, callback, type)
+	{
+		if(typeof type != typeof "") type=Prefs.contentType;
+		if(type=="xml") { this.loadXML(filename, callback); return; }
+		if(type=="wiki") { this.loadWiki(filename, callback); return; }
+		console.log("Unknown content type");
 	},
 	
 	parseXML: function(xmlRoot)

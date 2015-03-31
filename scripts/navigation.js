@@ -2,7 +2,12 @@ var navigateTo=function(ref)
 {
 	p=ref.split("::");
 	Interface.content.show(Prefs.text.loading);
-	ContentManager.load(p[0]);
+	ContentManager.load(p[0], function(response)
+	{
+		document.decoder.source=response;
+		Interface.content.show(document.decoder.parse());
+	}, "wiki");
+	
 	if(p.length>1)
 	{
 		console.log(p[1]);
@@ -70,7 +75,7 @@ Navigation=
 	
 	navigateToTop: function()
 	{
-		console.log("To top");
+		document.getElementById("content-header").scrollIntoView();
 	},
 	
 	
@@ -79,12 +84,14 @@ Navigation=
 		if(Navigation.navTree==null) return null;
 		
 		var liArr=Navigation.navTree.wrapper.getElementsByTagName("li");
+		console.log(data);
 		for(var i=0; i<liArr.length; i++)
 		{
 			if(liArr[i].treeNode!=null && liArr[i].treeNode!=undefined)
 			{
 				if(liArr[i].treeNode.data==data)
 					return liArr[i];
+				console.log(liArr[i].treeNode.data);
 			}
 		}
 		return null;

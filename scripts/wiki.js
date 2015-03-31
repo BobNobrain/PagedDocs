@@ -166,13 +166,10 @@ function createWikiDecoder(text)
 			
 			this.readHeader();
 			
-			this.apd("<div>"); // content sections
-			
-			console.log(this.pos+this.ch()+this.ch(1));
+			this.apd("<div id='content-header'>"); // content sections
 			
 			this.skipWhiteSpace();
 			
-			console.log(this.pos+this.ch()+this.ch(1));
 			while(!this.eof())
 			{
 				while(this.ch()!='`')
@@ -216,7 +213,7 @@ function createWikiDecoder(text)
 		// reads header gblock, then stops at the beginning of the next line
 		readHeader: function()
 		{
-			this.apd("<h2>");
+			this.apd("<h2 id='content-header'>");
 			
 			var title="";
 			
@@ -450,7 +447,6 @@ function createWikiDecoder(text)
 				{
 					// ch() is '\' and it's not escaped => it's escaping char
 					this.incp();
-					console.log("Unescaped");
 					continue;
 				}
 				this.apd(this.ch());
@@ -468,7 +464,8 @@ function createWikiDecoder(text)
 		
 		readRefEntry: function()
 		{
-			this.apd("<span class='ref' data-to='");
+			// function refClicked is defined in interface.js
+			this.apd("<span class='ref' onclick='refClicked(this);' data-to='");
 			var text=false;
 			while(!this.eof())
 			{
@@ -710,7 +707,6 @@ function createWikiDecoder(text)
 				rows+=this.ch();
 				this.incp();
 			}
-			console.log(cols);
 			cols=cols*1;
 			rows=rows*1;
 			if(isNaN(cols))

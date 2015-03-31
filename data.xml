@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0"?>
 <nav>
-	<item type="composite" base="main/" data="0.xml" label="main">
-		<item type="final" data="1.xml" label="main #1" />
-		<item type="final" data="2.xml" label="main #2" />
+	<item type="composite" base="main/" data="0.txt" label="main">
+		<item type="final" data="1.txt" label="main #1" />
+		<item type="final" data="2.txt" label="main #2" />
 	</item>
 	<item type="group" base="ui/" label="ui">
-		<item type="final" data="1.xml" label="ui #1" />
-		<item type="final" data="2.xml" label="ui #2" />
+		<item type="final" data="1.txt" label="ui #1" />
+		<item type="final" data="2.txt" label="ui #2" />
 	</item>
 </nav>

@@ -15,6 +15,13 @@ function toggleSpoiler(element)
 	}
 }
 
+function refClicked(element)
+{
+	var ref=Prefs.dataRootUrl+element.getAttribute("data-to")
+	Navigation.navigate(ref);
+	Interface.navigator.activate(Navigation.getTreeElement(ref));
+}
+
 var getIcon=function(li)
 {
 	var divs=li.getElementsByTagName("div");

@@ -5,6 +5,7 @@ Prefs.dataRootUrl="data/";
 
 /*===== [ Parameters ] =====*/
 Prefs.defaultLang="Java";
+Prefs.contentType="wiki";
 
 /*===== [ Navigation ] =====*/
 Prefs.navigation={};

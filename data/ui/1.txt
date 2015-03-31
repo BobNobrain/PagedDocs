@@ -1,0 +1,9 @@
+﻿ui #1
+
+`[Section 1]
+Don't know what to write here; so catch a cat:
+`i|images/1.jpg|The cat is glad to see you too
+
+`@ Marks the beginning of see-also block
+`{main/2.txt}main #2`;
+`{ui/2.txt}ui #2`;
