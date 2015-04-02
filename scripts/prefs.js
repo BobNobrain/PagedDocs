@@ -22,7 +22,7 @@ Prefs.text.loading="Загрузка...";
 Prefs.text.initialContent="Выберите любой раздел в списке слева...";
 Prefs.text.initialRibbonContent="Панель загружается...";
 Prefs.text.ribbonListDefaultElementContent="(пусто)";
-Prefs.text.noDate="(дата неизвестна)";
+Prefs.text.noDate="(дата&nbsp;неизвестна)";
 
 Prefs.navigation.text={};
 Prefs.navigation.text.scrollToTop="Наверх";
@@ -47,3 +47,5 @@ Prefs.navigation.text.searchInvitation="Искать...";
 
 Prefs.navigation.text.historyNavSection="Журнал просмотра";
 Prefs.navigation.text.searchNavSection="Поиск";
+
+Prefs.navigation.text.moreVersionsLabel="...";

@@ -19,12 +19,12 @@ var collapseVersions=function(nodes)
 	{
 		var arr=assemblies[label];
 		var lastVer=arr[arr.length-1];
-		console.log(arr);
 		for(var i=arr.length-2; i>=0; i--)
 		{
-			lastVer.data.versions.push({ date:arr[i].data.versions[0].dateStr, data:arr[i].data.versions[0].data });
+			lastVer.data.versions.push({ dateStr:arr[i].data.currentDate, data:arr[i].data.current });
 		}
 		nodes.push(lastVer);
+		console.log(lastVer.data.versions);
 	}
 }
 
@@ -65,7 +65,8 @@ var processItem=function(base, itm)
 	
 	var node=Tree.createNode(label, type, {
 		current: data,
-		versions: [ { dateStr:date, data:data } ]
+		currentDate: date,
+		versions: []
 	});
 	
 	/*
@@ -101,14 +102,26 @@ var processItem=function(base, itm)
 				var vdate=child.getAttribute("date");
 				if(typeof vdate != typeof "") vdate=Prefs.text.noDate;
 				var vdata=base+nbase+child.getAttribute("data");
-				node.data.versions.push({ dateStr:vdate, data:vdata });
+				// and new version to THE START of list
+				node.data.versions.unshift({ dateStr:vdate, data:vdata });
 				// overwritting current version with a newer one
 				// (up-to-date version is considered to be in the last <ver> node
 				node.data.current=vdata;
+				node.data.currentDate=vdate;
 			}
 			child=child.nextElementSibling;
 		}
 		collapseVersions(node.childNodes);
+	}
+	
+	if(node.nodeType!=Tree.NODE_GROUP)
+	{
+		// if only one version exists, it's now represented only in .data.current
+		// so let's add it into versions array
+		if(node.data.versions.length==0)
+		{
+			node.data.versions.push({ dateStr:date, data:data });
+		}
 	}
 	
 	return node;

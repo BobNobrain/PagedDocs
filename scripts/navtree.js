@@ -72,6 +72,39 @@ var createListNode=function(node)
 	label.innerHTML=node.label;
 	label.className="label";
 	
+	li.appendChild(icon);
+	li.appendChild(label);
+	
+	// versions popup
+	if(node.nodeType!=Tree.NODE_GROUP)
+	{
+		if(node.data.versions.length>1)
+		{
+			var verp=document.createElement("div");
+			verp.classList.add("versions-popup");
+			
+			var verl=document.createElement("div");
+			verl.classList.add("label");
+			verl.innerHTML=Prefs.navigation.text.moreVersionsLabel;
+			verp.appendChild(verl);
+			
+			var verul=document.createElement("ul");
+			verp.appendChild(verul);
+			
+			var verli=null;
+			for(var i=0; i<node.data.versions.length; i++)
+			{
+				verli=document.createElement("li");
+				verli.innerHTML=node.data.versions[i].dateStr;
+				verli.setAttribute("data-ref", node.data.versions[i].data);
+				verul.appendChild(verli);
+			}
+			
+			li.appendChild(verp);
+		}
+	}
+	// endof versions popup
+	
 	var ul=null;
 	
 	switch(node.nodeType)
@@ -90,9 +123,6 @@ var createListNode=function(node)
 		}
 		break;
 	}
-	
-	li.appendChild(icon);
-	li.appendChild(label);
 	if(ul!=null) li.appendChild(ul);
 	
 	// Handlers

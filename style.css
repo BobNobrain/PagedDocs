@@ -188,6 +188,54 @@ div.dclsd-icon {
 	background: url(img/fclsd.png);
 }
 
+#nav .versions-popup {
+	position: relative;
+	float: left;
+	margin-left: 3%;
+}
+#nav .versions-popup .label {
+	border: 1px solid #bbb;
+	color: #bbb;
+	margin: 0px;
+	padding: 0px 2px;
+	font-size: 0.8em;
+}
+#nav .versions-popup ul {
+	display: none;
+	position: absolute;
+	z-index: 1000;
+	
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+	width: auto;
+	
+	top: 0px;
+	left: calc(100% - 1px);
+	
+	border: 1px solid #777;
+	background: #555;
+	color: #eee;
+}
+#nav .versions-popup ul li::before { display: none; }
+#nav .versions-popup ul li {
+	padding: 2px 5px;
+	font-size: 0.9em;
+	font-family: "Courier New", Courier, monospace;
+	cursor: pointer;
+}
+#nav .versions-popup ul li:hover {
+	background: #009bff;
+}
+
+#nav .versions-popup:hover .label {
+	border-color: #777;
+	color: #777;
+}
+#nav .versions-popup:hover ul {
+	display: block;
+}
+
 /* Content */
 
 #content-header {
