@@ -214,8 +214,11 @@ div.dclsd-icon {
 	left: calc(100% - 1px);
 	
 	border: 1px solid #777;
-	background: #555;
-	color: #eee;
+	background: #f7f7f7;
+	color: #000;
+	border-right-width: 3px;
+	
+	box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.35);
 }
 #nav .versions-popup ul li::before { display: none; }
 #nav .versions-popup ul li {
@@ -227,6 +230,7 @@ div.dclsd-icon {
 }
 #nav .versions-popup ul li:hover {
 	background: #009bff;
+	color: #fff;
 }
 
 #nav .versions-popup:hover .label {

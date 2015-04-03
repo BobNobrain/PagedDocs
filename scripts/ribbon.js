@@ -295,7 +295,7 @@ Ribbon=
 			{
 				if(this.defaultElement.enabled)
 				{
-					this.elements.push(Ribbon.createListItem(this.defaultElement.content, false, false, false));
+					this.elements.push(Ribbon.createListItem(this.defaultElement.content, false, false));
 				}
 			}
 			

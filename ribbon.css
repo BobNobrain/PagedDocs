@@ -199,6 +199,15 @@
 	color: #fff;
 }
 
+#ribbon .list li.disabled {
+	color: #555;
+	cursor: default;
+}
+#ribbon .list li.disabled:hover {
+	background: none transparent;
+	color: #555;
+}
+
 #ribbon .list li::after {
 	display: block;
 	position: absolute;

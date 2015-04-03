@@ -156,7 +156,7 @@ Navigation=
 		group.addElement(Ribbon.createCheckBox(Prefs.navigation.text.caseSensitive, true, Prefs.navigation.caseSensitiveSearch));
 		group.addElement(Ribbon.createCheckBox(Prefs.navigation.text.onlyInTitles, false, Prefs.navigation.searchOnlyInTitles));
 		group.addElement(Ribbon.createButton(Prefs.navigation.text.search, {
-			enabled:true, onclick:function()
+			enabled:false, onclick:function()
 			{
 				console.log("Поиск!");
 			}
