@@ -244,16 +244,32 @@ Ribbon=
 		return btn;
 	},
 	
-	createList: function(name, labels, checkable, width)
+	createList: function(name, labels, params)
 	{
-		if(typeof checkable != typeof false) checkable=false;
-		if(typeof width != typeof 0) width=-1;
-		var list=getElementDummy(name, Ribbon.ELEMENT_LIST, width, true);
+		//default values
+		if(typeof params!=typeof {})
+		{
+			params={};
+		}
+		if(typeof params.width != typeof 0) params.width=-1;
+		if(typeof params.checkable != typeof false) params.checkable=false;
+		
+		if(typeof params.defaultElementEnabled != typeof false)
+			params.defaultElementEnabled=false;
+		
+		if(typeof params.defaultElementContent != typeof "")
+			params.defaultElementContent=Prefs.text.ribbonListDefaultElementContent;
+		
+		
+		var list=getElementDummy(name, Ribbon.ELEMENT_LIST, params.width, true);
 		list.name=name;
 		//list.type=Ribbon.ELEMENT_LIST;
 		list.elements=[];
-		list.checkable=checkable;
-		list.defaultElement={ enabled: false, content: Prefs.text.ribbonListDefaultElementContent }
+		list.checkable=params.checkable;
+		list.defaultElement={
+			enabled: params.defaultElementEnabled,
+			content: params.defaultElementContent
+		}
 		//list.width=width;
 		
 		for(var i=0; i<labels.length; i++)

@@ -223,6 +223,7 @@ div.dclsd-icon {
 	font-size: 0.9em;
 	font-family: "Courier New", Courier, monospace;
 	cursor: pointer;
+	white-space: nowrap;
 }
 #nav .versions-popup ul li:hover {
 	background: #009bff;

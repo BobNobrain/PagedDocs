@@ -95,8 +95,14 @@ var createListNode=function(node)
 			for(var i=0; i<node.data.versions.length; i++)
 			{
 				verli=document.createElement("li");
-				verli.innerHTML=node.data.versions[i].dateStr;
-				verli.setAttribute("data-ref", node.data.versions[i].data);
+				verli.innerHTML=node.data.versions[i].label;
+				verli.setAttribute("data-ref", node.data.versions[i].path);
+				
+				verli.onclick=function()
+				{
+					Navigation.navigate(this.getAttribute("data-ref"));
+				}
+				
 				verul.appendChild(verli);
 			}
 			
@@ -133,13 +139,13 @@ var createListNode=function(node)
 		label.onclick=function()
 		{
 			if(!Interface.navigator.isActive(this.parentNode))
-				Navigation.navigate(this.parentNode.treeNode.data.current);
+				Navigation.navigate(this.parentNode.treeNode.data.path);
 			Interface.navigator.activate(this.parentNode);
 		}
 		icon.onclick=function()
 		{
 			if(!Interface.navigator.isActive(this.parentNode))
-				Navigation.navigate(this.parentNode.treeNode.data.current);
+				Navigation.navigate(this.parentNode.treeNode.data.path);
 			Interface.navigator.activate(this.parentNode);
 		}
 		break;
@@ -157,8 +163,7 @@ var createListNode=function(node)
 		label.onclick=function()
 		{
 			if(!Interface.navigator.isActive(this.parentNode))
-				Navigation.navigate(this.parentNode.treeNode.data.current);
-			console.log(this.parentNode.treeNode.data.current);
+				Navigation.navigate(this.parentNode.treeNode.data.path);
 			Interface.navigator.activate(this.parentNode);
 			Interface.navigator.expand(this.parentNode);
 		}
@@ -195,41 +200,5 @@ NavTree=
 		}
 		tree.rebuild();
 		return tree;
-	}
-}
-
-
-// data can store any object
-// in our case, it will store string of full class name or smth like "additionalInfo#1"
-var treeObjExample=
-{
-	root:
-	{
-		nodeType: Tree.NODE_GROUP,
-		data: null,
-		label: "",
-		childNodes:
-		[
-			{
-				nodeType: Tree.NODE_COMPOSITE,
-				data: "ru.sdevteam.vinv.main",
-				label: "main",
-				childNodes:
-				[
-					{
-						nodeType: Tree.NODE_FINAL,
-						contents: "ru.s...v.main.Program",
-						label: "#1st node of the #1st node",
-						childNodes: null
-					},
-					{
-						nodeType: Tree.NODE_FINAL,
-						contents: "ru.s...v.main.MainFrame",
-						label: "#2st node of the #1st node",
-						childNodes: null
-					}
-				]
-			}
-		]
 	}
 }

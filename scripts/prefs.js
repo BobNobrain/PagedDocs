@@ -22,7 +22,7 @@ Prefs.text.loading="Загрузка...";
 Prefs.text.initialContent="Выберите любой раздел в списке слева...";
 Prefs.text.initialRibbonContent="Панель загружается...";
 Prefs.text.ribbonListDefaultElementContent="(пусто)";
-Prefs.text.noDate="(дата&nbsp;неизвестна)";
+Prefs.text.versionDefaultName="(без имени)";
 
 Prefs.navigation.text={};
 Prefs.navigation.text.scrollToTop="Наверх";

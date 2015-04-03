@@ -21,10 +21,9 @@ var collapseVersions=function(nodes)
 		var lastVer=arr[arr.length-1];
 		for(var i=arr.length-2; i>=0; i--)
 		{
-			lastVer.data.versions.push({ dateStr:arr[i].data.currentDate, data:arr[i].data.current });
+			lastVer.data.versions.push({ label:arr[i].data.label, path:arr[i].data.path });
 		}
 		nodes.push(lastVer);
-		console.log(lastVer.data.versions);
 	}
 }
 
@@ -34,11 +33,11 @@ var processItem=function(base, itm)
 	var label=itm.getAttribute("label");
 	var type=itm.getAttribute("type");
 	
-	var data=null, nbase="";
+	var path=null, nbase="";
 	
 	
-	var date=itm.getAttribute("date");
-	if(typeof date != typeof "") date=Prefs.text.noDate;
+	var verName=itm.getAttribute("v");
+	if(typeof verName != typeof "") verName=Prefs.text.versionDefaultName;
 	
 	switch(type)
 	{
@@ -47,7 +46,7 @@ var processItem=function(base, itm)
 		nbase=itm.getAttribute("base");
 		if(nbase==null || nbase==undefined) nbase="";
 		
-		// defining versions of composite
+		path=base+nbase+itm.getAttribute("data");
 		
 		break;
 	case "group":
@@ -58,14 +57,14 @@ var processItem=function(base, itm)
 		break;
 	case "final":
 		type=Tree.NODE_FINAL;
-		data=base+nbase+itm.getAttribute("data");
+		path=base+nbase+itm.getAttribute("data");
 		
 		break;
 	}
 	
 	var node=Tree.createNode(label, type, {
-		current: data,
-		currentDate: date,
+		path: path,
+		label: verName,
 		versions: []
 	});
 	
@@ -75,12 +74,13 @@ var processItem=function(base, itm)
 		type: Number,
 		data:
 		{
-			current: String,
-			versions:
+			path: String,		<- current version filename
+			label: String,		<- current version label
+			versions:			<- all versions array, ordered from newer to older ones
 			[
-				{
-					dateStr: String,
-					data: String
+				{				<- the first item is current version info
+					label: String,
+					path: String
 				},
 				...
 			]
@@ -89,7 +89,7 @@ var processItem=function(base, itm)
 	*/
 	
 	if(type!=Tree.NODE_FINAL)
-	{
+	{	
 		var child=itm.firstElementChild;
 		while(child!=null)
 		{
@@ -99,15 +99,15 @@ var processItem=function(base, itm)
 			}
 			if(child.tagName=="ver" && type==Tree.NODE_COMPOSITE)
 			{
-				var vdate=child.getAttribute("date");
-				if(typeof vdate != typeof "") vdate=Prefs.text.noDate;
+				var versionName=child.getAttribute("v");
+				if(typeof versionName != typeof "") versionName=Prefs.text.versionDefaultName;
 				var vdata=base+nbase+child.getAttribute("data");
 				// and new version to THE START of list
-				node.data.versions.unshift({ dateStr:vdate, data:vdata });
+				node.data.versions.unshift({ label:versionName, path:vdata });
 				// overwritting current version with a newer one
 				// (up-to-date version is considered to be in the last <ver> node
-				node.data.current=vdata;
-				node.data.currentDate=vdate;
+				node.data.path=vdata;
+				node.data.label=versionName;
 			}
 			child=child.nextElementSibling;
 		}
@@ -116,11 +116,11 @@ var processItem=function(base, itm)
 	
 	if(node.nodeType!=Tree.NODE_GROUP)
 	{
-		// if only one version exists, it's now represented only in .data.current
+		// if only one version exists, it's now represented only in .data.path
 		// so let's add it into versions array
 		if(node.data.versions.length==0)
 		{
-			node.data.versions.push({ dateStr:date, data:data });
+			node.data.versions.push({ label:verName, path:path });
 		}
 	}
 	

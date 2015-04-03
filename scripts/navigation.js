@@ -10,6 +10,8 @@ var navigateTo=function(ref)
 	
 	if(p.length>1)
 	{
+		// for in-page references
+		// (mb will be implemented in future)
 		console.log(p[1]);
 	}
 }
@@ -85,14 +87,12 @@ Navigation=
 		if(Navigation.navTree==null) return null;
 		
 		var liArr=Navigation.navTree.wrapper.getElementsByTagName("li");
-		console.log(data);
 		for(var i=0; i<liArr.length; i++)
 		{
 			if(liArr[i].treeNode!=null && liArr[i].treeNode!=undefined)
 			{
 				if(liArr[i].treeNode.data==data)
 					return liArr[i];
-				console.log(liArr[i].treeNode.data);
 			}
 		}
 		return null;
@@ -107,7 +107,6 @@ Navigation=
 		section.addElement(Ribbon.createButton(Prefs.navigation.text.scrollToTop, {
 			iconChar: Prefs.navigation.text.scrollToTopIcon, enabled:true, onclick:function()
 			{
-				console.log("Наверх");
 				Navigation.navigateToTop();
 			}
 		}));
@@ -119,7 +118,6 @@ Navigation=
 			iconChar: Prefs.navigation.text.goBackIcon, enabled:true, onclick:function()
 			{
 				Navigation.goBack();
-				console.log("Назад");
 			}
 		});
 		section.addElement(Interface.ribbon.goBackButton);
@@ -128,7 +126,6 @@ Navigation=
 			iconChar: Prefs.navigation.text.goForwardIcon, enabled:true, onclick:function()
 			{
 				Navigation.goForward();
-				console.log("Вперёд");
 			}
 		});
 		section.addElement(Interface.ribbon.goForwardButton);
@@ -139,7 +136,6 @@ Navigation=
 			iconChar: Prefs.navigation.text.homePageIcon, enabled:true, onclick:function()
 			{
 				Navigation.navigateHome();
-				console.log("Домой");
 			}
 		}));
 		
@@ -167,27 +163,11 @@ Navigation=
 		}));
 		section.addElement(group);
 		
-		section.addElement(Ribbon.createList(Prefs.navigation.text.searchResults, ["1", "2"], false, 200));
-		
-		
-		
-		/*
-		section.addElement(Ribbon.createButton("My button", { iconChar:"^", enabled:true, onclick:function(){alert("bla")} }));
-		section.addElement(Ribbon.createSpaceBlock(-1));
-		section.addElement(Ribbon.createList("My list", ["Elem 1","Elem 2","Elem 3","Elem 5","Elem 7", "Elem 11"], true, 200));
-		
-		section=Navigation.ribbon.createSection("Another section", 500);
-		
-		var group=Ribbon.createGroup(-1);
-		group.addElement(Ribbon.createTextBox("searcher", true, 200, "Placeholder test"));
-		group.addElement(Ribbon.createCheckBox("My checkbox", true, true));
-		group.addElement(Ribbon.createButton("Apply", "", true));
-		
-		section.addElement(group);
-		
-		section.addElement(Ribbon.createSpaceBlock(5));
-		section.addElement(Ribbon.createButton("Big button motherfucker!", { iconChar:"!", enabled:true }));
-		*/
+		section.addElement(Ribbon.createList(Prefs.navigation.text.searchResults, [], {
+			checkable:false, 
+			width: 200,
+			defaultElementEnabled: true
+		}));
 	}
 }
 
