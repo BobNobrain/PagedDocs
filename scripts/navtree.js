@@ -177,6 +177,9 @@ var createListNode=function(node)
 		break;
 	}
 	
+	node.navListItem=li;
+	console.log(li);
+	
 	return li;
 }
 NavTree=

@@ -25,8 +25,6 @@ var checkObsolete=function(treeNode, ref)
 		if(treeNode.data.path==ref) return false;	
 		for(var i=0; i<treeNode.data.versions.length; i++)
 		{
-			console.log(ref+"=="+treeNode.data.versions[i].path);
-			console.log(treeNode.data.versions[i].path==ref);
 			if(treeNode.data.versions[i].path==ref) return true;
 		}
 	}
@@ -39,6 +37,30 @@ var checkObsolete=function(treeNode, ref)
 		}
 	}
 	return false;
+}
+
+var findNode=function(treeNode, ref)
+{
+	if(treeNode==null) return null;
+
+	if(typeof treeNode.data == typeof {})
+	{
+		if(treeNode.data.path==ref) return treeNode;	
+		for(var i=0; i<treeNode.data.versions.length; i++)
+		{
+			if(treeNode.data.versions[i].path==ref) return treeNode;
+		}
+	}
+	
+	if(typeof treeNode.childNodes == typeof [])
+	{
+		for(var i=0; i<treeNode.childNodes.length; i++)
+		{
+			var found=findNode(treeNode.childNodes[i], ref);
+			if(found!=null) return found;
+		}
+	}
+	return null;
 }
 
 Navigation=
@@ -72,6 +94,9 @@ Navigation=
 		Navigation.cpos++;
 		
 		Interface.ribbon.refreshNavButtons();
+		this.activateNavItem(ref);
+		
+		this.navigateToTop();
 	},
 	
 	checkObsolete: function(ref)
@@ -80,12 +105,26 @@ Navigation=
 		{
 			if(checkObsolete(this.navTree.roots[i], ref))
 			{
-				console.log(true);
 				Interface.content.showObsoleteIcon(true);
 				return;
 			}
 		}
 		Interface.content.showObsoleteIcon(false);
+	},
+	
+	activateNavItem: function(ref)
+	{
+		for(var i=0; i<this.navTree.roots.length; i++)
+		{
+			var found=findNode(this.navTree.roots[i], ref);
+			if(found!=null)
+			{
+				Interface.navigator.activate(found.navListItem);
+				return;
+			}
+		}
+		// nothing appropriate was found, inactivate all
+		Interface.navigator.deactivateAll();
 	},
 	
 	canGoBack: function()
@@ -95,9 +134,10 @@ Navigation=
 		if(!Navigation.canGoBack()) return;
 		Navigation.cpos--;
 		navigateTo(Navigation.history[Navigation.cpos].ref);
-		this.checkObsolete(ref);
+		this.checkObsolete(Navigation.history[Navigation.cpos].ref);
 		
 		Interface.ribbon.refreshNavButtons();
+		this.activateNavItem(Navigation.history[Navigation.cpos].ref);
 	},
 	
 	canGoForward: function()
@@ -107,9 +147,10 @@ Navigation=
 		if(!Navigation.canGoForward()) return;
 		Navigation.cpos++;
 		navigateTo(Navigation.history[Navigation.cpos].ref);
-		this.checkObsolete(ref);
+		this.checkObsolete(Navigation.history[Navigation.cpos].ref);
 		
 		Interface.ribbon.refreshNavButtons();
+		this.activateNavItem(Navigation.history[Navigation.cpos].ref);
 	},
 	
 	navigateHome: function()

@@ -251,6 +251,7 @@ div.dclsd-icon {
 	background: #777;
 	color: #fff;
 	border: 1px solid #555;
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.35);
 	
 	font-size: 10px;
 	text-indent: 24px;
@@ -422,7 +423,7 @@ div.dclsd-icon {
 	font-weight: normal;
 }
 
-#text table, tr, td {
+#text table, #text tr, #text td {
 	border: 1px solid #009bff;
 	border-collapse: collapse;
 }
