@@ -101,6 +101,9 @@ var createListNode=function(node)
 				verli.onclick=function()
 				{
 					Navigation.navigate(this.getAttribute("data-ref"));
+					// now, we'll try to get outer li, containing this list
+					// ok, the ierarchy seems to be verli==this < verul < verp <li
+					Interface.navigator.activate(this.parentNode.parentNode.parentNode);
 				}
 				
 				verul.appendChild(verli);

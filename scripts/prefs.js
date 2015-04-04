@@ -23,6 +23,7 @@ Prefs.text.initialContent="Выберите любой раздел в спис�
 Prefs.text.initialRibbonContent="Панель загружается...";
 Prefs.text.ribbonListDefaultElementContent="(пусто)";
 Prefs.text.versionDefaultName="(без имени)";
+Prefs.text.obsoleteVersionWarning="Вы просматриваете устаревшую версию!";
 
 Prefs.navigation.text={};
 Prefs.navigation.text.scrollToTop="Наверх";

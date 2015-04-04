@@ -19,23 +19,22 @@ function onDocumentLoaded()
 		documentLoadedListeners[i]();
 	}
 	documentLoadedListeners=null;
+	
+	Navigation.navigateHome();
 }
 subscribeOnLoad(function()
 {
 	document.getElementById("text").innerHTML=Prefs.text.initialContent;
-	//document.getElementById("tab1").innerHTML=Prefs.text.initialRibbonContent;
-	//document.getElementById("tab2").innerHTML=Prefs.text.initialRibbonContent;
+	document.getElementById("tab1").innerHTML=Prefs.text.initialRibbonContent;
+	document.getElementById("tab2").innerHTML=Prefs.text.initialRibbonContent;
+	document.getElementById("obsolete-icon").innerHTML=Prefs.text.obsoleteVersionWarning;
 	
 	Tabs.createTab(document.getElementById("tab1b"), document.getElementById("tab1"));
 	Tabs.createTab(document.getElementById("tab2b"), document.getElementById("tab2"));
 	
 	document.decoder=createWikiDecoder("");
 	
-	ContentManager.loadWiki("data/wiki.txt", function(response)
-	{
-		document.decoder.source=response;
-		Interface.content.show(document.decoder.parse());
-	});
+	//Navigation.navigateHome();
 });
 </script>
 <script src="scripts/interface.js" ></script>
@@ -137,6 +136,7 @@ subscribeOnLoad(function()
 		<div id='nav'>
 		</div>
 		<div id='text-wrapper'>
+			<div id='obsolete-icon' style="visibility:hidden;">Obsolete</div>
 			<div id='text'></div>
 		</div>
 	</td></tr>

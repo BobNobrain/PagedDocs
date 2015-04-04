@@ -1,5 +1,6 @@
 var navWrapper=null, textWrapper=null;
 var ribbonTab1=null, ribbonTab2=null;
+var obsoleteIcon=null;
 
 // external function, used in spoilers caption
 function toggleSpoiler(element)
@@ -66,6 +67,7 @@ Interface=
 		textWrapper=document.getElementById('text');
 		ribbonTab1=document.getElementById('tab1');
 		ribbonTab2=document.getElementById('tab2');
+		obsoleteIcon=document.getElementById('obsolete-icon');
 	},
 	
 	// Navigator
@@ -207,6 +209,12 @@ Interface=
 		getContent: function()
 		{
 			return textWrapper.innerHTML;
+		},
+		
+		showObsoleteIcon: function(flag)
+		{
+			if(obsoleteIcon==null) return;
+			obsoleteIcon.style.visibility=flag?"visible":"hidden";
 		}
 	},
 	
