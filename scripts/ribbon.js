@@ -35,6 +35,7 @@ var getSectionDummy=function()
 			isEmpty=false;
 			this.elements.push(elem);
 			this.wrapper.appendChild(elem.wrapper);
+			return elem;
 		},
 		
 		recreateLayout: function()
@@ -272,6 +273,14 @@ Ribbon=
 		}
 		//list.width=width;
 		
+		list.addElement=function(label, enabled, checked, onclickCallback)
+		{
+			li=Ribbon.createListItem(label, enabled, checked, onclickCallback);
+			this.elements.push(li);
+			this.wrapper.appendChild(li.wrapper);
+			return li;
+		}
+		
 		for(var i=0; i<labels.length; i++)
 		{
 			li=Ribbon.createListItem(labels[i], true, false);
@@ -306,10 +315,18 @@ Ribbon=
 			}
 		}
 		
-		list.clear=function()
+		list.clear=function(preserveDefElem)
 		{
+			if(typeof preserveDefElem != typeof false) preserveDefElem=true;
+			
 			this.elements=[];
 			this.wrapper.innerHTML="";
+			
+			if(this.defaultElement.enabled && preserveDefElem)
+			{
+				this.elements.push(Ribbon.createListItem(this.defaultElement.content, false, false));
+				this.wrapper.appendChild(this.elements[0].wrapper);
+			}
 		}
 		
 		list.getCheckedLabels=function()
@@ -337,6 +354,7 @@ Ribbon=
 	
 	createListItem: function(label, enabled, checked, onclickCallback)
 	{
+		if(typeof checked != typeof false) checked=false;
 		var li=getElementDummy(label, Ribbon.ELEMENT_LIST_ITEM, -1, enabled, onclickCallback);
 		//li.type=Ribbon.ELEMENT_LIST_ITEM;
 		//li.enabled=enabled;
@@ -452,7 +470,11 @@ Ribbon=
 			
 			this.wrapper.appendChild(document.createTextNode(this.name));
 			
-			if(!this.enabled) this.wrapper.classList.add("disabled");
+			if(!this.enabled)
+			{
+				this.wrapper.classList.add("disabled");
+				box.setAttribute("disabled", 1);
+			}
 			/*if(this.width>0) this.wrapper.style.width=this.width+"px";
 			else this.wrapper.style.width="";*/
 			this.applyWrapperWidth();
@@ -505,6 +527,7 @@ Ribbon=
 		{
 			this.elements.push(elem);
 			this.wrapper.appendChild(elem.wrapper);
+			return elem;
 		}
 		
 		group.recreateLayout=function()

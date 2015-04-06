@@ -10,10 +10,14 @@ Prefs.contentType="wiki";
 /*===== [ Navigation ] =====*/
 Prefs.navigation={};
 Prefs.navigation.maxHistoryLength=20;
-Prefs.navigation.caseSensitiveSearch=false;
-Prefs.navigation.searchOnlyInTitles=true;
 Prefs.navigation.homePageUrl="data/home.txt";
 Prefs.navigation.page404Url="data/404.txt";
+
+/*===== [ Search ] =====*/
+Prefs.search={};
+
+Prefs.search.caseSensitiveSearch=false;
+Prefs.search.searchOnlyInTitles=true;
 
 /*===== [ Strings ] =====*/
 Prefs.text={};
@@ -40,13 +44,16 @@ Prefs.navigation.text.browseHistoryIcon="&#8986;";
 Prefs.navigation.text.homePage="Домой";
 Prefs.navigation.text.homePageIcon="&#8962;";
 
-Prefs.navigation.text.search="Поиск &#x27a4;";
-Prefs.navigation.text.searchIcon="";
-Prefs.navigation.text.caseSensitive="Учесть регистр";
-Prefs.navigation.text.onlyInTitles="Только в заголовках";
-Prefs.navigation.text.searchInvitation="Искать...";
 
 Prefs.navigation.text.historyNavSection="Журнал просмотра";
 Prefs.navigation.text.searchNavSection="Поиск";
 
 Prefs.navigation.text.moreVersionsLabel="...";
+
+Prefs.search.text={};
+Prefs.search.text.nothingWasFound="(ничего не найдено)";
+Prefs.search.text.search="Поиск &#x27a4;";
+Prefs.search.text.searchIcon="";
+Prefs.search.text.caseSensitive="Учесть регистр";
+Prefs.search.text.onlyInTitles="Только в заголовках";
+Prefs.search.text.searchInvitation="Искать...";

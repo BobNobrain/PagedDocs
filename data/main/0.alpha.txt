@@ -1,6 +1,7 @@
 ﻿Main #0
 
 `[Section 1]
+Тест кириллицы... пройден (надеюсь)
 Don't know what to write here; so catch a cat:
 `i|images/1.jpg|The cat is glad to see you too
 

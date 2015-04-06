@@ -6,6 +6,8 @@ var navigateTo=function(ref)
 	{
 		document.decoder.source=response;
 		Interface.content.show(document.decoder.parse());
+		
+		Navigation.navigateToTop();
 	}, "wiki");
 	
 	if(p.length>1)
@@ -95,8 +97,6 @@ Navigation=
 		
 		Interface.ribbon.refreshNavButtons();
 		this.activateNavItem(ref);
-		
-		this.navigateToTop();
 	},
 	
 	checkObsolete: function(ref)
@@ -234,22 +234,94 @@ Navigation=
 		section=Navigation.ribbon.createSection(Prefs.navigation.text.searchNavSection, -1);
 		
 		var group=Ribbon.createGroup(-1);
-		group.addElement(Ribbon.createTextBox("Search", true, 200, Prefs.navigation.text.searchInvitation));
-		group.addElement(Ribbon.createCheckBox(Prefs.navigation.text.caseSensitive, true, Prefs.navigation.caseSensitiveSearch));
-		group.addElement(Ribbon.createCheckBox(Prefs.navigation.text.onlyInTitles, false, Prefs.navigation.searchOnlyInTitles));
-		group.addElement(Ribbon.createButton(Prefs.navigation.text.search, {
-			enabled:false, onclick:function()
+		var stb=group.addElement(Ribbon.createTextBox("Search", true, 200, Prefs.search.text.searchInvitation));
+		var caseCb=group.addElement(Ribbon.createCheckBox(	Prefs.search.text.caseSensitive,
+															true, Prefs.search.caseSensitiveSearch));
+		
+		var titlesCb=group.addElement(Ribbon.createCheckBox(Prefs.search.text.onlyInTitles,
+															false, Prefs.search.searchOnlyInTitles));
+		
+		var sbtn=group.addElement(Ribbon.createButton(Prefs.search.text.search, {
+			//
+			// SEARCH BUTTON ONCLICK
+			//
+			enabled:true, onclick:function()
 			{
-				console.log("Поиск!");
+				var query=this.searchBox.getText();
+				if(query=="") return;
+				var casesns=this.caseSensitiveBox.isChecked();
+				var results=Navigation.searchHeadings(query, casesns);
+				
+				this.resultsList.clear(results.length==0);
+				for(var i=0; i<results.length; i++)
+				{
+					this.resultsList.addElement(results[i].label, true, false, function(){
+						Navigation.navigate(this.itemPath);
+						
+					}).itemPath=results[i].path;
+				}
 			}
 		}));
+		sbtn.searchBox=stb;
+		sbtn.caseSensitiveBox=caseCb;
+		sbtn.titlesBox=titlesCb;
+		
 		section.addElement(group);
 		
-		section.addElement(Ribbon.createList(Prefs.navigation.text.searchResults, [], {
+		var searchResults=section.addElement(Ribbon.createList(Prefs.search.text.searchResults, [], {
 			checkable:false, 
 			width: 200,
-			defaultElementEnabled: true
+			defaultElementEnabled: true,
+			defaultElementContent: Prefs.search.text.nothingWasFound
 		}));
+		
+		sbtn.resultsList=searchResults;
+	},
+	
+	searchHeadings: function(keyword, regsns)
+	{
+		var results=[];
+		
+		var r=function(node, word, regsns, sres)
+		{	
+			var cnd=node.data;
+			if(typeof cnd == typeof {})
+			{
+				var index=-1;
+				if(regsns) index=node.label.toLowerCase().indexOf(word);
+				else index=node.label.indexOf(word);
+				if(index!=-1)
+				{
+					sres.push({ position:index, label:node.label, path:node.data.path });
+				}
+				
+				/*for(var j=0; j<cnd.versions.length; j++)
+				{
+					var index=-1;
+					if(regsns) index=cnd.versions[j].label.toLowerCase().indexOf(word);
+					else index=cnd.versions[j].label.indexOf(word);
+					if(index!=-1)
+					{
+						sres.push({ position:index, label:cnd.versions[j].label, path:cnd.versions[j].path });
+					}
+				}*/
+			}
+			if(typeof node.childNodes != typeof []) return;
+			for(var i=0; i<node.childNodes.length; i++)
+			{
+				r(node.childNodes[i], word, regsns, sres);
+			}
+			
+			//console.log(sres);
+		}
+		
+		if(regsns) keyword=keyword.toLowerCase();
+		for(var i=0; i<this.navTree.roots.length; i++)
+		{
+			r(this.navTree.roots[i], keyword, regsns, results);
+		}
+		
+		return results;
 	}
 }
 
