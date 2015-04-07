@@ -464,9 +464,8 @@ function createWikiDecoder(text)
 		
 		readRefEntry: function()
 		{
-			// function refClicked is defined in interface.js
-			this.apd("<span class='ref' onclick='refClicked(this);' data-to='");
 			var text=false;
+			var ref="", label="";
 			while(!this.eof())
 			{
 				var c=this.ch();
@@ -478,7 +477,6 @@ function createWikiDecoder(text)
 				if(c=='}')
 				{
 					text=true;
-					this.apd("'>");
 					this.incp();
 					continue;
 				}
@@ -487,17 +485,35 @@ function createWikiDecoder(text)
 					if(!text)
 					{
 						this.error("Unexpected ref end");
-						this.apd("'></span>");
 						this.incp();
-						return;
+						break;
 					}
-					this.apd("</span>");
 					this.incp();
-					return;
+					break;
 				}
-				this.apd(c);
+				if(text) label+=c;
+				else ref+=c;
 				this.incp();
 			}
+			
+			// function refClicked is defined in interface.js
+			this.apd("<span class='ref' onclick='refClicked(this);' data-to='");
+			
+			// ~ .endsWith("::label"), for possible future features
+			/* if(ref.substring(ref.length-7, ref.length)=="::label") */
+			if(ref.substring(ref.length-3, ref.length)=="::l")
+			{
+				// "::l" flag should be converted into "::label"
+				ref+="abel";
+			}
+			if(ref=="::label")
+			{
+				//e.g. `{::label}Sprite` - should be converted into `{Sprite::label}Sprite`
+				ref=label+ref;
+			}
+			
+			this.apd(ref); this.apd("'>");
+			this.apd(label); this.apd("</span>");
 		},
 		
 		readLinkEntry: function()

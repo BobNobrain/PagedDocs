@@ -18,7 +18,11 @@ function toggleSpoiler(element)
 
 function refClicked(element)
 {
-	var ref=Prefs.dataRootUrl+element.getAttribute("data-to")
+	var ref=element.getAttribute("data-to");
+	if(ref.indexOf("::")==-1 || ref.indexOf("::ref")!=-1)
+	{
+		ref=Prefs.dataRootUrl+ref;
+	}
 	Navigation.navigate(ref);
 	Interface.navigator.activate(Navigation.getTreeElement(ref));
 }

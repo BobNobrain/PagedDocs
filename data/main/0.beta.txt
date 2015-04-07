@@ -62,5 +62,5 @@ public class Talker extends AbstractUselessClass
 `)
 
 `@ Marks the beginning of see-also block
-`{main/1.txt}main #1`;
-`{ui/2.txt}ui #2`;
+`{ui #2::label}ui #2::label`;
+`{::label}ui #2`;

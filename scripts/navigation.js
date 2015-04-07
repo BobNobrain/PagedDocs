@@ -1,8 +1,57 @@
 var navigateTo=function(ref)
 {
+	// `{::label}Sprite`								=> ref=="Sprite::label" (wiki.js corrects)
+	// `{TowerSprite::l}Один из наследников Sprite`		=> ref=="TowerSprite::label"
+	// possible flags: (TODO:)
+	// ::ref - a simple ref, eq. of no flag
+	// ::label - reference by label
+	// ::search - perform a search with query
+	// ::back - navigate back across history
+	// ::fwd - similar
+	// ::home - navigate home
 	p=ref.split("::");
 	Interface.content.show(Prefs.text.loading);
-	ContentManager.load(p[0], function(response)
+	
+	var path=ref;
+	
+	if(p.length>1)
+	{
+		if(p[1]=="label")
+		{
+			// recursive function that findes path by label
+			var r=function(n, l)
+			{
+				if(n.label==l && typeof n.data == typeof {})
+				{
+					return n.data.path;
+				}
+				if(typeof n.childNodes==typeof [])
+				{
+					for(var i=0; i<n.childNodes.length; i++)
+					{
+						var result=r(n.childNodes[i], l);
+						if(result!=null) return result;
+					}
+				}
+				return null;
+			}
+			for(var i=0; i<Navigation.navTree.roots.length; i++)
+			{
+				var result=r(Navigation.navTree.roots[i], p[0]);
+				if(result!=null)
+				{
+					path=result;
+					break;
+				}
+			}
+		}
+		else
+		{
+			path=p[0];
+		}
+	}
+	
+	ContentManager.load(path, function(response)
 	{
 		document.decoder.source=response;
 		Interface.content.show(document.decoder.parse());
@@ -14,7 +63,7 @@ var navigateTo=function(ref)
 	{
 		// for in-page references
 		// (mb will be implemented in future)
-		console.log(p[1]);
+		console.log(p);
 	}
 }
 
