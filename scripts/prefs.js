@@ -19,6 +19,16 @@ Prefs.search={};
 Prefs.search.caseSensitiveSearch=false;
 Prefs.search.searchOnlyInTitles=true;
 
+/*===== [ Colors ] =====*/
+Prefs.colors={};
+
+Prefs.colors.defaultColors="Default";
+Prefs.colors.available=["Default", "Dark"];
+
+Prefs.colors.text={};
+
+Prefs.colors.text.themes="Цветовые темы";
+
 /*===== [ Strings ] =====*/
 Prefs.text={};
 
@@ -57,3 +67,19 @@ Prefs.search.text.searchIcon="";
 Prefs.search.text.caseSensitive="Учесть регистр";
 Prefs.search.text.onlyInTitles="Только в заголовках";
 Prefs.search.text.searchInvitation="Искать...";
+
+
+/* functionality */
+
+Prefs.save=function()
+{
+	setCookie("defColors", Prefs.colors.defaultColors, {expires:6*30*24*60*60});
+}
+
+Prefs.load=function()
+{
+	defColors=getCookie("defColors");
+	if(defColors!=null) Prefs.colors.defaultColors=defColors;
+}
+
+Prefs.load();

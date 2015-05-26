@@ -72,6 +72,8 @@ Interface=
 		ribbonTab1=document.getElementById('tab1');
 		ribbonTab2=document.getElementById('tab2');
 		obsoleteIcon=document.getElementById('obsolete-icon');
+		
+		Interface.colors.setColors(Prefs.colors.defaultColors);
 	},
 	
 	// Navigator
@@ -240,7 +242,35 @@ Interface=
 			if(Navigation.canGoForward()) Interface.ribbon.goForwardButton.enable();
 			else Interface.ribbon.goForwardButton.disable();
 		}
+	},
+	
+	colors:
+	{
+		setColors: function(file)
+		{
+			Prefs.colors.defaultColors=file;
+			file='colors/'+file+'.css';
+			document.getElementById('colors-css').setAttribute('href', file);
+			Prefs.save();
+		}
+	},
+	
+	createViewRibbon: function(wrapper)
+	{
+		Interface.viewRibbon=Ribbon.create(wrapper);
+		
+		// Section for colors switching
+		var section=Interface.viewRibbon.createSection(Prefs.colors.text.themes, -1);
+		var list=section.addElement(Ribbon.createList(Prefs.colors.text.availableColors, [], {
+			checkable:false, 
+			width: 200,
+			defaultElementEnabled: false
+		}));
+		
+		for(var i in Prefs.colors.available)
+			list.addElement(Prefs.colors.available[i], true, false, function(){Interface.colors.setColors(this.name);});
 	}
 }
 
 subscribeOnLoad(Interface.init);
+subscribeOnLoad(function(){Interface.createViewRibbon(Interface.ribbon.getTabWrapper(2));});

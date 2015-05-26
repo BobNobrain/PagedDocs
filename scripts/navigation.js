@@ -209,7 +209,9 @@ Navigation=
 	
 	navigateToTop: function()
 	{
-		document.getElementById("content-header").scrollIntoView();
+		//document.getElementById("content-header").scrollIntoView();
+		document.getElementById('text').scrollIntoView();
+		//window.scrollTo(0, 0);
 	},
 	
 	
