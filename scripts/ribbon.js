@@ -440,11 +440,11 @@ Ribbon=
 		return tb;
 	},
 	
-	createCheckBox: function(label, enabled, checked)
+	createCheckBox: function(label, enabled, checked, onclick)
 	{
 		if(typeof checked != typeof false) checked=false;
 		
-		var cb=getElementDummy(label, Ribbon.ELEMENT_CHECKBOX, -1, enabled);
+		var cb=getElementDummy(label, Ribbon.ELEMENT_CHECKBOX, -1, enabled, onclick);
 		//cb.name=label;
 		//cb.enabled=enabled;
 		cb.defaultChecked=checked;
@@ -478,11 +478,17 @@ Ribbon=
 			/*if(this.width>0) this.wrapper.style.width=this.width+"px";
 			else this.wrapper.style.width="";*/
 			this.applyWrapperWidth();
+			
+			this.wrapper.element=this;
+			this.wrapper.onclick=function()
+			{
+				this.element.onclick();
+			}
 		}
 		
 		cb.isChecked=function()
 		{
-			return this.wrapper.checked;
+			return this.wrapper.firstChild.checked;
 		}
 		
 		cb.recreateLayout();

@@ -22,7 +22,9 @@ function onDocumentLoaded()
 	}
 	documentLoadedListeners=null;
 	
-	Navigation.navigateHome();
+	//Navigation.navigateHome();
+	if(Prefs.appearance.openLastViewed) Navigation.navigate(Prefs.navigation.lastPageUrl);
+	else Navigation.navigateHome();
 }
 subscribeOnLoad(function()
 {

@@ -178,7 +178,6 @@ var createListNode=function(node)
 	}
 	
 	node.navListItem=li;
-	console.log(li);
 	
 	return li;
 }

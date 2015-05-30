@@ -12,6 +12,7 @@ Prefs.navigation={};
 Prefs.navigation.maxHistoryLength=20;
 Prefs.navigation.homePageUrl="data/home.txt";
 Prefs.navigation.page404Url="data/404.txt";
+Prefs.navigation.lastPageUrl="data/home.txt";
 
 /*===== [ Search ] =====*/
 Prefs.search={};
@@ -19,15 +20,17 @@ Prefs.search={};
 Prefs.search.caseSensitiveSearch=false;
 Prefs.search.searchOnlyInTitles=true;
 
-/*===== [ Colors ] =====*/
-Prefs.colors={};
+/*===== [ Appearance ] =====*/
+Prefs.appearance={};
 
-Prefs.colors.defaultColors="Default";
-Prefs.colors.available=["Default", "Dark"];
+Prefs.appearance.defaultColors="Default";
+Prefs.appearance.available=["Default", "Dark"];
+Prefs.appearance.openLastViewed=true;
 
-Prefs.colors.text={};
+Prefs.appearance.text={};
 
-Prefs.colors.text.themes="Цветовые темы";
+Prefs.appearance.text.themes="Цветовые темы";
+Prefs.appearance.text.openLastViewed="Запоминать последнюю страницу";
 
 /*===== [ Strings ] =====*/
 Prefs.text={};
@@ -73,13 +76,21 @@ Prefs.search.text.searchInvitation="Искать...";
 
 Prefs.save=function()
 {
-	setCookie("defColors", Prefs.colors.defaultColors, {expires:6*30*24*60*60});
+	setCookie("defColors", Prefs.appearance.defaultColors, {expires:6*30*24*60*60});
+	setCookie("openLastViewed", Prefs.appearance.openLastViewed? "1":"0", {expires:6*30*24*60*60});
+	setCookie("lastPageUrl", Prefs.navigation.lastPageUrl, {expires:6*30*24*60*60});
 }
 
 Prefs.load=function()
 {
 	defColors=getCookie("defColors");
-	if(defColors!=null) Prefs.colors.defaultColors=defColors;
+	if(defColors!=null) Prefs.appearance.defaultColors=defColors;
+	
+	svLW=getCookie("openLastViewed");
+	if(svLW!=null) Prefs.appearance.openLastViewed = (svLW=="1");
+	
+	lpU=getCookie("lastPageUrl");
+	if(lpU!=null) Prefs.navigation.lastPageUrl=lpU;
 }
 
 Prefs.load();

@@ -73,7 +73,7 @@ Interface=
 		ribbonTab2=document.getElementById('tab2');
 		obsoleteIcon=document.getElementById('obsolete-icon');
 		
-		Interface.colors.setColors(Prefs.colors.defaultColors);
+		Interface.colors.setColors(Prefs.appearance.defaultColors);
 	},
 	
 	// Navigator
@@ -248,7 +248,7 @@ Interface=
 	{
 		setColors: function(file)
 		{
-			Prefs.colors.defaultColors=file;
+			Prefs.appearance.defaultColors=file;
 			file='colors/'+file+'.css';
 			document.getElementById('colors-css').setAttribute('href', file);
 			Prefs.save();
@@ -260,15 +260,27 @@ Interface=
 		Interface.viewRibbon=Ribbon.create(wrapper);
 		
 		// Section for colors switching
-		var section=Interface.viewRibbon.createSection(Prefs.colors.text.themes, -1);
-		var list=section.addElement(Ribbon.createList(Prefs.colors.text.availableColors, [], {
+		var section=Interface.viewRibbon.createSection(Prefs.appearance.text.themes, -1);
+		var list=section.addElement(Ribbon.createList(Prefs.appearance.text.availableColors, [], {
 			checkable:false, 
 			width: 200,
 			defaultElementEnabled: false
 		}));
 		
-		for(var i in Prefs.colors.available)
-			list.addElement(Prefs.colors.available[i], true, false, function(){Interface.colors.setColors(this.name);});
+		for(var i in Prefs.appearance.available)
+			list.addElement(Prefs.appearance.available[i], true, false, function(){Interface.colors.setColors(this.name);});
+			
+		section=Interface.viewRibbon.createSection("", -1);
+		var cb=section.addElement(Ribbon.createCheckBox(Prefs.appearance.text.openLastViewed, true,
+														Prefs.appearance.openLastViewed, function(){
+			// shamanstvo buben kostyl
+			// onclick function is called twice when clicking checkbox
+			// firstly when checked hasn't changed yet
+			// secondly when it has
+			Prefs.appearance.openLastViewed=this.isChecked();
+			Prefs.save();
+		}));
+		
 	}
 }
 

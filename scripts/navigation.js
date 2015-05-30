@@ -146,6 +146,9 @@ Navigation=
 		
 		Interface.ribbon.refreshNavButtons();
 		this.activateNavItem(ref);
+		
+		Prefs.navigation.lastPageUrl=ref;
+		Prefs.save();
 	},
 	
 	checkObsolete: function(ref)
