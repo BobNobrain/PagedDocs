@@ -260,7 +260,7 @@ ContentManager=
 	init: function()
 	{
 		xml=new window.XMLHttpRequest();
-		xml.open("GET", "data.xml", false);
+		xml.open("GET", Prefs.pagesListUrl, false);
 		xml.setRequestHeader('Content-Type', 'text/xml')
 		xml.send(null);
 		

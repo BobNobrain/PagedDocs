@@ -2,6 +2,7 @@ Prefs={};
 
 /*===== [ Paths ] =====*/
 Prefs.dataRootUrl="data/";
+Prefs.pagesListUrl="data.xml";
 
 /*===== [ Parameters ] =====*/
 Prefs.defaultLang="Java";
